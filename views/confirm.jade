@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  .text-center
+    h1= title
+  hr
+  form(method="POST", action="/thanks")
+    p 
+      .row
+        .col
+          label(for="assisting") 
+            span Asistiendo
+        .col 
+          select#assisting.form-control
+            -for(var i = 0;i<11;i++){
+            option(value="#{i}") #{i}
+            -}
+      br
+      .row
+        .col
+          .form-group 
+            label(for="name") Nombre 
+            input#name.form-control(type="text", placeholder="Tu nombre" name="name")
+        .col
+          .form-group 
+            label(for="lastname") Apellido 
+            input#lastname.form-control(type="text", placeholder="Tu apellido" name="lastname")
+        .col
+          .form-group 
+            label(for="age") Edad 
+            input#age.form-control(type="text", placeholder="Edad" name="age")
+      br
+      .row
+        .col
+          label(for="declining") 
+            span Lo sentimos, no podremos acompañarlos
+        .col 
+          input#declining.form-control.pull-right(type="checkbox" checked=false, disabled=false)
+      .row 
+        button.btn.btn-primary(type="submit") Enviar Respuesta
+
