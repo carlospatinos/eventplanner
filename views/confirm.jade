@@ -1,41 +1,79 @@
 extends layout
 
 block content
-  .text-center
-    h1= title
-  hr
-  form(method="POST", action="/thanks")
-    p 
-      .row
-        .col
-          label(for="assisting") 
-            span Asistiendo
-        .col 
-          select#assisting.form-control
-            -for(var i = 0;i<11;i++){
-            option(value="#{i}") #{i}
-            -}
-      br
-      .row
-        .col
-          .form-group 
-            label(for="name") Nombre 
-            input#name.form-control(type="text", placeholder="Tu nombre" name="name")
-        .col
-          .form-group 
-            label(for="lastname") Apellido 
-            input#lastname.form-control(type="text", placeholder="Tu apellido" name="lastname")
-        .col
-          .form-group 
-            label(for="age") Edad 
-            input#age.form-control(type="text", placeholder="Edad" name="age")
-      br
-      .row
-        .col
-          label(for="declining") 
-            span Lo sentimos, no podremos acompañarlos
-        .col 
-          input#declining.form-control.pull-right(type="checkbox" checked=false, disabled=false)
-      .row 
-        button.btn.btn-primary(type="submit") Enviar Respuesta
-
+  script.
+    jQuery(document).ready(function($) {
+      console.log("js is working");
+      $("#assistingAdultsDiv").hide();
+      $("#assistingChildrenDiv").hide();
+    });
+    function valueChanged() {
+        
+        if ($('#attendingSwitch').is(":checked")) {
+          // it is checked
+          console.log("checked");
+          $("#assistingAdultsDiv").show();
+        } else {
+          console.log("nooo checked");
+          //- $(".assistingChildren").hide();
+          $("#assistingAdultsDiv").hide();
+        }
+        //- if($('.attendingSwitch').is(":checked")) {
+        //-   console.log("checked");
+        //-   $(".assistingChildren").show();
+        //- } else {
+        //-   $(".assistingChildren").hide();
+        //-   console.log("unchecked");
+        //- }
+    }
+  .row
+    .col
+    .col
+      .p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;")
+        .text-center
+          h1 Confirmación de asistencia
+          p.text-justify(style='white-space:pre;')
+            |#{'\n'} Hola #{guest.name} 
+            | estamos felices de extender contigo la invitacion para celebrar los XV años de nuestra hija Karla Yaretzi.
+            |#{'\n'} Conideramos #{guest.estimatedAdultCount} adultos y #{guest.estimatedChildCount} (menores de 3 años) para ti. 
+            |#{'\n'} Esperamos contar con su presencia 
+        hr
+        form(method="POST", action="/thanks")
+          p 
+            .row 
+              .col
+                .form-check.form-switch
+                    input#attendingSwitch.form-check-input(type="checkbox" role="switch" value="1" onchange="valueChanged()" name="attendingSwitch")
+                    label.form-check-label(for="attendingSwitch") Asistiras
+              .col#assistingAdultsDiv
+                label(for="assistingAdults") 
+                  span Adultos
+                select#assistingAdults.form-control
+                  -for(var i = 0;i<=guest.estimatedAdultCount;i++){
+                  option(value="#{i}") #{i}
+                  -}
+              if guest.estimatedChildCount > 0
+                .col#assistingChildrenDiv
+                  label(for="assistingChildren") 
+                    span Niños (menores de 3 años)
+                  select#assistingChildren.form-control
+                    -for(var i = 0;i<=guest.estimatedChildCount;i++){
+                    option(value="#{i}") #{i}
+                    -}
+                
+            .row 
+              //-     .form-group 
+              //-       label(for="name") Nombre 
+              //-       input#name.form-control(type="text", placeholder="Tu nombre" name="name")
+              //-     .form-group 
+              //-       label(for="lastname") Apellido 
+              //-       input#lastname.form-control(type="text", placeholder="Tu apellido" name="lastname")
+              //-     .form-group 
+              //-       label(for="age") Edad 
+              //-       input#age.form-control(type="text", placeholder="Edad" name="age")
+              br
+            
+            
+            .row
+              button.btn.btn-primary(type="submit") Enviar Respuesta
+    .col

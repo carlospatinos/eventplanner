@@ -14,12 +14,12 @@ router.get('/', async function (req, res, next) {
 router.post('/', function (req, res, next) {
   const mailOrPhone = req.body.mailOrPhone
 
-  GuestModel.findOne({ $or: [ { mail: mailOrPhone, mobile: mailOrPhone } ] }).then((docs) => {
-    console.log("Result :", docs);
-    if (docs == null) {
-      res.render('index', { title: 'Confirmación de asistencia' });
+  GuestModel.findOne({ $or: [ { mail: mailOrPhone}, {mobile: mailOrPhone } ] }).then((record) => {
+    console.log("Result :", record);
+    if (record == null) {
+      res.render('index', { error: 'Registro no encontrado' });
     } else {
-      res.render('confirm', { title: 'Confirmación de asistencia' });
+      res.render('confirm', { guest: record });
     }
     
   })

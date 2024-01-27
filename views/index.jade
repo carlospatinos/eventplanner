@@ -1,26 +1,24 @@
 extends layout
 
 block content
-  .p-3.mb-2.bg-white(style="--bs-bg-opacity: .5;")
-    .text-center
-      h1= title
-      h3  Nos encantaria verte pronto!
-      //- .p-3.mb-2.bg-success.text-dark.p-2(style="--bs-bg-opacity: .2;")
-    hr
-    .text-center
-      form(method="POST", action="/confirm")
-        p
-          .row 
-            .col 
-            .col
-              Por favor indica tu correo o telefono mobil para iniciar el proceso de confirmación o declinación 
-            .col
-          br
-          .row 
-            .col
-            .col
-              input#mailOrPhone.form-control(type="text", placeholder="Correo o telefono" name="mailOrPhone")
-              br
-              button.btn.btn-primary(type="submit") Iniciar
-            .col
+  .row 
+    .col 
+    .col 
+      .p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;")
+        .text-center
+          h1 Confirmación de asistencia
+          h3 Nos encantaria verte pronto!
+          //- .p-3.mb-2.bg-success.text-dark.p-2(style="--bs-bg-opacity: .2;")
+        hr
+        .text-center
+          form.needs-validation(method="POST", action="/confirm" novalidate)
+            p Por favor indica tu correo o telefono movil para iniciar el proceso de confirmación o declinación 
+            br
+            input#mailOrPhone.form-control(type="text", placeholder="Correo o telefono" name="mailOrPhone" required)
+            br
+            #has-warning
+              spam.help-block.text-danger= error
+            br
+            button.btn.btn-primary(type="submit") Iniciar
+    .col
 

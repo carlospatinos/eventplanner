@@ -1,2 +1,2 @@
-name,lastname,mail,mobile,description
-"name","lastname","mail","mobile","Margarita y Daniel"
+name,lastname,mail,mobile,description,response,estimatedAdultCount,estimatedChildCount,confirmedAdultCount,confirmedChildCount,responseDate
+"Margarita","Salazar","mail","mobile","Margarita y Daniel","pending",2,0,0,0,
