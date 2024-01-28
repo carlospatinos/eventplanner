@@ -13,7 +13,7 @@ var downloadRouter = require('./routes/download');
 var app = express();
 
 const mongoDbConnect = async () => {
-  console.log("MONGOSERVER_URI" + MONGOSERVER_URI1);
+  console.log("MONGOSERVER_URI" + process.env.MONGOSERVER_URI1);
   try {
     await mongoose.connect(process.env.MONGOSERVER_URI);
   } catch (error) {
