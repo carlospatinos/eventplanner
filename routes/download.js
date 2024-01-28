@@ -9,6 +9,9 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
+  // res.set('Content-Type', 'application/vnd.apple.pkpass');
+  // res.status(200).send(newPass);
+
   let data = {
     name: "Employee Name",
     age: 27,
