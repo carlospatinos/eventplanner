@@ -6,6 +6,7 @@ block content
       console.log("js is working");
       $("#assistingAdultsDiv").hide();
       $("#assistingChildrenDiv").hide();
+      $('#attendingSwitch').prop('checked', false);
     });
     function valueChanged() {
         if ($('#attendingSwitch').is(":checked")) {
@@ -29,13 +30,13 @@ block content
         b #{guest.name} 
         | estamos felices de extender contigo la invitacion para celebrar los XV años de nuestra hija Karla Yaretzi.
       p 
-        | Conideramos 
+        | Tenemos considerados  
         b #{guest.estimatedAdultCount} 
-        | adultos 
+        | adulto(s) 
         if guest.estimatedChildCount > 0
           | y 
           b #{guest.estimatedChildCount} 
-          | (menores de 3 años) 
+          | [menor(es) de 3 años]
         | para ti. 
       p 
         | Esperamos contar con su presencia 

@@ -12,16 +12,16 @@ block content
         p.text-center
           | Ahora puedes descargar tus boletos en diferentes formatos
       .row.p-3
-        select.form-control
+        select#downloadFormat(name="downloadFormat").form-control
           option(value="pdf") PDF
-          option(value="jpg") Imagen
+          option(value="png") Imagen
           option(value="pkass") Pase Movil
       .row  
         button.btn.btn-primary(type="submit") Descargar
  
     else 
       .row 
-        p.text-center
+        h4.text-center
           | Sentimos no poder contar con tu presencia pero esperamos poder verte pronto 
     
     

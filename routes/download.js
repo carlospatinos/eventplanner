@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const QRCode = require('qrcode');
+var stream = require('stream');
+
 
 var sharp = require('sharp');
 var path = require('path');
@@ -54,15 +56,10 @@ async function generateSVG(text) {
 async function createTicket(customerName, ticketId, outputPath) {
 
   try {// Generate  barcode for the ticket as buffer
-    var ticketId = "1111";
-    var customerName = "1223333"
-
     const barcodeImageBuffer = await generateBarcode(ticketId)
     // Generate customer name for ticket as buffer
-    const customerNameImageBuffer = await generateSVG(customerName)
-
+    const customerNameImageBuffer = await generateSVG(ticketId)
     const rotated = await sharp(customerNameImageBuffer).rotate(270).toBuffer(); 
-
     const qrcodeImageBuffer = await generateQRCode(serviceURL + ticketId)
 
     const ticketTemplatePath = path.join(__dirname, '../tickets/_template.png')
@@ -75,8 +72,7 @@ async function createTicket(customerName, ticketId, outputPath) {
     const qrCodeOverlay = {
       input: qrcodeImageBuffer,
       left: 1640,// Y position for QR code
-      top: 100, // X position for QR code
-      
+      top: 100, // X position for QR code 
     }
 
     const barcodeOverlay = {
@@ -90,55 +86,72 @@ async function createTicket(customerName, ticketId, outputPath) {
       left: 60,
       top: 220,
     }
-    await ticket.composite([
+
+    var actualTicket = await ticket.composite([
       // barcodeOverlay,
       qrCodeOverlay,
       svgOverlay,
-    ]).toFile(outputPath)
+    ]);
+    
+    // actualTicket.toFile(outputPath);
 
-    console.log('Ticket created!')
+    console.log('Ticket created!');
 
+    return actualTicket.toBuffer();
 
   } catch (err) {
     console.error('Error creating ticket:', err)
     throw err
   }
-
-
 }
 
 /* GET users listing. */
-router.get('/', async function (req, res, next) {
-  // Generate  barcode for the ticket as buffer
-  var ticketId = "1111";
-  var customerName = "Carlos"
+router.post('/', async function (req, res, next) {
+  console.log(req.body.downloadFormat);
+  switch (req.body.downloadFormat) {
+    case "pdf":
+    case "pkass":
+    case "png":
+    default:
+      // Generate  barcode for the ticket as buffer
+      var ticketId = "1111";
+      var customerName = "Carlos"
 
-  createTicket(customerName, ticketId, 'tickets/generated/g.png')
+      var generatedTicket = await createTicket(customerName, ticketId, 'tickets/generated/' + ticketId + '.png')
 
-  res.render('download', {});
-});
+      var fileContents = Buffer.from(generatedTicket, "base64");
+      var readStream = new stream.PassThrough();
+      readStream.end(fileContents);
+      var fileName = customerName + ".png";
 
-router.post('/', function (req, res, next) {
+      res.set('Content-disposition', 'attachment; filename=' + fileName);
+      res.set('Content-Type', 'text/plain');
 
-  // res.set('Content-Type', 'application/vnd.apple.pkpass');
-  // res.status(200).send(newPass);
-
-  let data = {
-    name: "Employee Name",
-    age: 27,
-    department: "Police",
-    id: "aisuoiqu3234738jdhf100223"
+      readStream.pipe(res);
   }
-
-  let stringdata = JSON.stringify(data)
-
-  QRCode.toDataURL(stringdata, function (err, qrEncodedCode) {
-    if (err) return console.log("error occurred")
-    // Printing the code
-    console.log(qrEncodedCode)
-    res.render('download', { qr: qrEncodedCode });
-  })
-
 });
+
+// router.post('/', function (req, res, next) {
+
+//   // res.set('Content-Type', 'application/vnd.apple.pkpass');
+//   // res.status(200).send(newPass);
+
+//   let data = {
+//     name: "Employee Name",
+//     age: 27,
+//     department: "Police",
+//     id: "aisuoiqu3234738jdhf100223"
+//   }
+
+//   let stringdata = JSON.stringify(data)
+
+//   QRCode.toDataURL(stringdata, function (err, qrEncodedCode) {
+//     if (err) return console.log("error occurred")
+//     // Printing the code
+//     console.log(qrEncodedCode)
+//     res.render('download', { qr: qrEncodedCode });
+//   })
+
+// });
 
 module.exports = router;
