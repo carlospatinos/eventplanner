@@ -1,37 +1,27 @@
 extends layout
 
 block content
-  .text-center
-    h1= title
-  hr
-  form(method="POST", action="/user")
-    p 
-      .row
-        .col
-          label(for="assisting") 
-            span Asistiendo
-        .col 
-          select#assisting.form-control
-            -for(var i = 1;i<10;i++){
-            option(value="#{i}") #{i}
-            -}
-      br
-      .row
-        .col
-          .form-group 
-            label(for="name") Nombre 
-            input#name.form-control(type="text", placeholder="Tu nombre")
-        .col
-          .form-group 
-            label(for="lastname") Apellido 
-            input#lastname.form-control(type="text", placeholder="Tu apellido")
-      br
-      .row
-        .col
-          label(for="declining") 
-            span Lo sentimos, no podremos acompañarlos
-        .col 
-          input#declining.form-control.pull-right(type="checkbox" checked=false, disabled=false)
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/download")
+    .row
+      .text-center
+        h1 Gracias por tu respuesta
+    .row 
+      hr
+    if guest.response == "confirmed"
       .row 
-        button.btn.btn-primary(type="submit") Enviar Respuesta
-
+        p.text-center
+          | Ahora puedes descargar tus boletos en diferentes formatos
+      .row.p-3
+        select.form-control
+          option(value="pdf") PDF
+          option(value="pdf") Imagen
+          option(value="pdf") Pase Movil
+      .row  
+        button.btn.btn-primary(type="submit") Descargar
+ 
+    else 
+      .row 
+        p.text-center
+          | Sentimos no poder contar con tu presencia pero esperamos poder verte pronto 
+    
+    

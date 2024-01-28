@@ -8,72 +8,72 @@ block content
       $("#assistingChildrenDiv").hide();
     });
     function valueChanged() {
-        
         if ($('#attendingSwitch').is(":checked")) {
-          // it is checked
           console.log("checked");
           $("#assistingAdultsDiv").show();
+          $("#assistingChildrenDiv").show();
         } else {
           console.log("nooo checked");
-          //- $(".assistingChildren").hide();
           $("#assistingAdultsDiv").hide();
+          $("#assistingChildrenDiv").hide();
         }
-        //- if($('.attendingSwitch').is(":checked")) {
-        //-   console.log("checked");
-        //-   $(".assistingChildren").show();
-        //- } else {
-        //-   $(".assistingChildren").hide();
-        //-   console.log("unchecked");
-        //- }
     }
-  .row
-    .col
-    .col
-      .p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;")
-        .text-center
-          h1 Confirmación de asistencia
-          p.text-justify(style='white-space:pre;')
-            |#{'\n'} Hola #{guest.name} 
-            | estamos felices de extender contigo la invitacion para celebrar los XV años de nuestra hija Karla Yaretzi.
-            |#{'\n'} Conideramos #{guest.estimatedAdultCount} adultos y #{guest.estimatedChildCount} (menores de 3 años) para ti. 
-            |#{'\n'} Esperamos contar con su presencia 
-        hr
-        form(method="POST", action="/thanks")
-          p 
-            .row 
-              .col
-                .form-check.form-switch
-                    input#attendingSwitch.form-check-input(type="checkbox" role="switch" value="1" onchange="valueChanged()" name="attendingSwitch")
-                    label.form-check-label(for="attendingSwitch") Asistiras
-              .col#assistingAdultsDiv
-                label(for="assistingAdults") 
-                  span Adultos
-                select#assistingAdults.form-control
-                  -for(var i = 0;i<=guest.estimatedAdultCount;i++){
-                  option(value="#{i}") #{i}
-                  -}
-              if guest.estimatedChildCount > 0
-                .col#assistingChildrenDiv
-                  label(for="assistingChildren") 
-                    span Niños (menores de 3 años)
-                  select#assistingChildren.form-control
-                    -for(var i = 0;i<=guest.estimatedChildCount;i++){
-                    option(value="#{i}") #{i}
-                    -}
-                
-            .row 
-              //-     .form-group 
-              //-       label(for="name") Nombre 
-              //-       input#name.form-control(type="text", placeholder="Tu nombre" name="name")
-              //-     .form-group 
-              //-       label(for="lastname") Apellido 
-              //-       input#lastname.form-control(type="text", placeholder="Tu apellido" name="lastname")
-              //-     .form-group 
-              //-       label(for="age") Edad 
-              //-       input#age.form-control(type="text", placeholder="Edad" name="age")
-              br
-            
-            
-            .row
-              button.btn.btn-primary(type="submit") Enviar Respuesta
-    .col
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/thanks")
+    input#guest(type="hidden" name="guest" value=guest._id)
+    .row
+      .text-center
+        h1 Registro de asistencia
+    .row 
+      p.text-justify
+        | Hola 
+        b #{guest.name} 
+        | estamos felices de extender contigo la invitacion para celebrar los XV años de nuestra hija Karla Yaretzi.
+      p 
+        | Conideramos 
+        b #{guest.estimatedAdultCount} 
+        | adultos 
+        if guest.estimatedChildCount > 0
+          | y 
+          b #{guest.estimatedChildCount} 
+          | (menores de 3 años) 
+        | para ti. 
+      p 
+        | Esperamos contar con su presencia 
+    .row 
+      hr
+    .row
+      .col
+      .col
+        .form-check.form-switch
+          input#attendingSwitch.form-check-input(type="checkbox" role="switch" value="1" onchange="valueChanged()" name="attendingSwitch" style="transform: scale(1.5);") 
+          label.form-check-label.me-2(for="attendingSwitch") Asistiras
+      .col
+    .row.mb-2
+      #assistingAdultsDiv
+        label(for="assistingAdults") 
+          span Adultos:
+        select#assistingAdults.form-control(name="assistingAdults")
+          -for(var i = 1;i<=guest.estimatedAdultCount;i++){
+          option(value="#{i}") #{i}
+          -}
+    .row.mb-2
+      if guest.estimatedChildCount > 0
+        #assistingChildrenDiv
+          label(for="assistingChildren") 
+            span Niños (menores de 3 años): 
+          select#assistingChildren.form-control(name="assistingChildren")
+            -for(var i = 0;i<=guest.estimatedChildCount;i++){
+            option(value="#{i}") #{i}
+            -}
+    //- .row 
+      //-     .form-group 
+      //-       label(for="name") Nombre 
+      //-       input#name.form-control(type="text", placeholder="Tu nombre" name="name")
+      //-     .form-group 
+      //-       label(for="lastname") Apellido 
+      //-       input#lastname.form-control(type="text", placeholder="Tu apellido" name="lastname")
+      //-     .form-group 
+      //-       label(for="age") Edad 
+      //-       input#age.form-control(type="text", placeholder="Edad" name="age")
+    .row.p-3
+      button.btn.btn-primary(type="submit") Enviar Respuesta

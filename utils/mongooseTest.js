@@ -10,7 +10,7 @@ const port = 3000
 
 
 // Replace the uri string with your connection string.
-const uri = process.env.ATLAS_URI;
+const uri = process.env.MONGOSERVER_URI;
 
 
 // Set `strictQuery: false` to globally opt into filtering by properties that aren't in the schema

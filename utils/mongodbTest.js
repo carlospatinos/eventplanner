@@ -10,7 +10,7 @@ const port = 3000
 
 
 // Replace the uri string with your connection string.
-const uri = process.env.ATLAS_URI;
+const uri = process.env.MONGOSERVER_URI;
 const client = new MongoClient(uri);
 async function run() {
   try {

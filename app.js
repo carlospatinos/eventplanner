@@ -8,14 +8,13 @@ const mongoose = require("mongoose");
 var indexRouter = require('./routes/index');
 var confirmRouter = require('./routes/confirm');
 var thanksRouter = require('./routes/thanks');
-
-var usersRouter = require('./routes/users');
+var downloadRouter = require('./routes/download');
 
 var app = express();
 
 const mongoDbConnect = async () => {
   try {
-    await mongoose.connect(process.env.ATLAS_URI);
+    await mongoose.connect(process.env.MONGOSERVER_URI);
   } catch (error) {
     console.error(error);
     process.exit(1);
@@ -37,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/confirm', confirmRouter);
 app.use('/thanks', thanksRouter);
-app.use('/users', usersRouter);
+app.use('/download', downloadRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

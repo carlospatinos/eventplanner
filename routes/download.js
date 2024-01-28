@@ -3,7 +3,11 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('download', {});
+});
+
+router.post('/', function(req, res, next) {
+  res.render('download', {});
 });
 
 module.exports = router;

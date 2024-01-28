@@ -1,24 +1,22 @@
 extends layout
 
 block content
-  .row 
-    .col 
-    .col 
-      .p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;")
-        .text-center
-          h1 Confirmación de asistencia
-          h3 Nos encantaria verte pronto!
-          //- .p-3.mb-2.bg-success.text-dark.p-2(style="--bs-bg-opacity: .2;")
-        hr
-        .text-center
-          form.needs-validation(method="POST", action="/confirm" novalidate)
-            p Por favor indica tu correo o telefono movil para iniciar el proceso de confirmación o declinación 
-            br
-            input#mailOrPhone.form-control(type="text", placeholder="Correo o telefono" name="mailOrPhone" required)
-            br
-            #has-warning
-              spam.help-block.text-danger= error
-            br
-            button.btn.btn-primary(type="submit") Iniciar
-    .col
+  form.container.p-3.bg-white.needs-validation(method="POST", action="/confirm" novalidate style="--bs-bg-opacity: .8;")
+    .row.p-3.d-flex.justify-content-center.align-items-center
+      .text-center
+        h1 Nos encantaria verte pronto!
+    .row.d-flex.justify-content-center.align-items-center
+      hr
+    .row.p-3.d-flex.justify-content-center.align-items-center
+      .text-center
+        p Por favor indica tu correo o telefono movil para iniciar el proceso de confirmación o declinación 
+    .row.d-flex.justify-content-center.align-items-center
+      .text-center
+        input#mailOrPhone.form-control(type="text", placeholder="Correo o telefono" name="mailOrPhone" required)
+    .row.p-3.d-flex.justify-content-center.align-items-center
+      .text-center
+        #has-warning
+          spam.help-block.text-danger= error
+    .row.p-3
+      button.btn.btn-primary(type="submit") Iniciar
 
