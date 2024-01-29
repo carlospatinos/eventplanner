@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  script.
+    jQuery(document).ready(function($) {
+      $('#attendingSwitch').prop('checked', false);
+    });
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/thanks")
+    input#guest(type="hidden" name="guest" value=guest._id)
+    .row
+      .text-center
+        h1 Registro de llegada
+    .row 
+      p.text-justify
+        | Nombre del invitado:  
+        b #{guest.name}. 
+        | Mesa asignada: #{guest.tableAllocated}. 
+      p 
+        | Numero total de adulto(s) acompañantes (invitado incluido)
+        b #{guest.estimatedAdultCount} 
+        | Numero total de menore(s) acompañantes
+        if guest.estimatedChildCount > 0
+        b #{guest.estimatedChildCount}
+    .row 
+      hr
+    .row.mb-2
+      #assistingAdultsDiv
+        label(for="assistingAdults") 
+          span Adultos:
+        select#assistingAdults.form-control(name="assistingAdults")
+          -for(var i = 1;i<=guest.estimatedAdultCount;i++){
+          option(value="#{i}") #{i}
+          -}
+    .row.mb-2
+      if guest.estimatedChildCount > 0
+        #assistingChildrenDiv
+          label(for="assistingChildren") 
+            span Niños (menores de 3 años): 
+          select#assistingChildren.form-control(name="assistingChildren")
+            -for(var i = 0;i<=guest.estimatedChildCount;i++){
+            option(value="#{i}") #{i}
+            -}
+    .row.p-3
+      button.btn.btn-primary(type="submit") Enviar Respuesta

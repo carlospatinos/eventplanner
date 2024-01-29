@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var confirmRouter = require('./routes/confirm');
 var thanksRouter = require('./routes/thanks');
 var downloadRouter = require('./routes/download');
+var arrivedRouter = require('./routes/arrived');
 
 var app = express();
 
@@ -37,6 +38,8 @@ app.use('/', indexRouter);
 app.use('/confirm', confirmRouter);
 app.use('/thanks', thanksRouter);
 app.use('/download', downloadRouter);
+app.use('/arrived', arrivedRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const QRCode = require('qrcode');
+// const QRCode = require('qrcode');
 var stream = require('stream');
+var Canvas = require('canvas');
+
 
 
 var sharp = require('sharp');
@@ -12,6 +14,7 @@ var bwipjs = require('bwip-js');
 var TextToSVG = require('text-to-svg');
 
 const serviceURL = "https://eventplanner-by3d.onrender.com";
+const arrivingEndPoint = "/arrived?userId="
 
 async function generateQRCode(text) {
   let qrcodeBuffer = await bwipjs.toBuffer({
@@ -60,7 +63,7 @@ async function createTicket(customerName, ticketId, outputPath) {
     // Generate customer name for ticket as buffer
     const customerNameImageBuffer = await generateSVG(ticketId)
     const rotated = await sharp(customerNameImageBuffer).rotate(270).toBuffer(); 
-    const qrcodeImageBuffer = await generateQRCode(serviceURL + ticketId)
+    const qrcodeImageBuffer = await generateQRCode(serviceURL + arrivingEndPoint + ticketId)
 
     const ticketTemplatePath = path.join(__dirname, '../tickets/_template.png')
     console.log(ticketTemplatePath)
@@ -105,24 +108,41 @@ async function createTicket(customerName, ticketId, outputPath) {
   }
 }
 
+function imageToPdf(imageBuffer) {
+  const img = new Canvas.Image();
+  img.src = imageBuffer;
+  const canvas = new Canvas.createCanvas(img.width, img.height, 'pdf');
+  const context = canvas.getContext('2d');
+  context.drawImage(img, 0, 0, img.width, img.height);
+  return canvas.toBuffer();
+}
+
 /* GET users listing. */
 router.post('/', async function (req, res, next) {
   console.log(req.body.downloadFormat);
+
+  var ticketId = "1111";
+  var customerName = "Carlos"
+  var generatedTicket = await createTicket(customerName, ticketId, 'tickets/generated/' + ticketId + '.png')
+  
+
   switch (req.body.downloadFormat) {
     case "pdf":
+      var pdfFile = imageToPdf(generatedTicket);
+      // var fileContents = Buffer.from(pdfFile, "base64");
+      var fileName = customerName + ".pdf";
+      res.writeHead(200, {'content-type' : 'application/pdf'});
+      res.write( pdfFile );
+      res.end();  
+      break;
     case "pkass":
     case "png":
     default:
       // Generate  barcode for the ticket as buffer
-      var ticketId = "1111";
-      var customerName = "Carlos"
-
-      var generatedTicket = await createTicket(customerName, ticketId, 'tickets/generated/' + ticketId + '.png')
-
-      var fileContents = Buffer.from(generatedTicket, "base64");
+      var fileContents = Buffer.from(generatedTicket, "base64");    
+      var fileName = customerName + ".png";
       var readStream = new stream.PassThrough();
       readStream.end(fileContents);
-      var fileName = customerName + ".png";
 
       res.set('Content-disposition', 'attachment; filename=' + fileName);
       res.set('Content-Type', 'text/plain');
