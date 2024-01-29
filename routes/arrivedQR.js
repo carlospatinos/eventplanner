@@ -5,13 +5,12 @@ var { GuestModel } = require('../model/guest');
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  const mailOrPhone = req.params.userId
+  const mailOrPhone = req.query.userId
   GuestModel.findOne({ $or: [{ mail: mailOrPhone }, { mobile: mailOrPhone }] }).then((record) => {
-    // console.log("Result :", record);
     if (record == null) {
-      res.render('arrived', { guest: {}, error: 'Registro no encontrado' });
+      res.render('arrivedQR', { error: 'Registro no encontrado' });
     } else {
-      res.render('arrived', { guest: record });
+      res.render('arrivedQR', { guest: record });
     }
   }).catch((err) => {
     console.log("error" + err);

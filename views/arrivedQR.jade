@@ -5,22 +5,35 @@ block content
     jQuery(document).ready(function($) {
       $('#attendingSwitch').prop('checked', false);
     });
-  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/thanks")
-    .row
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/confirmedArrival")
+    .row.p-3
       .text-center
-        h1 Registro de llegada
-    if (guest > 0) 
+        h1 Registro de llegada 
+    - if (guest) {
       .row 
-        p.text-justify
-          | Nombre del invitado:  
+        .col
+        .col.h5 Nombre del invitado: 
+        .col.h5
           b #{guest.name}. 
-          | Mesa asignada: #{guest.tableAllocated}. 
-        p 
-          | Numero total de adulto(s) acompañantes (invitado incluido)
+        .col
+      .row
+        .col
+        .col.h5 Mesa asignada: 
+        .col.h5
+          b #{guest.tableAllocated}
+        .col
+      .row
+        .col
+        .col.h5 # total de adulto(s): 
+        .col.h5
           b #{guest.estimatedAdultCount} 
-          | Numero total de menore(s) acompañantes
-          if guest.estimatedChildCount > 0
+        .col
+      .row 
+        .col
+        .col.h5 # total de menore(s): 
+        .col.h5
           b #{guest.estimatedChildCount}
+        .col
       .row 
         hr
       .row.mb-2
@@ -42,9 +55,8 @@ block content
               -}
       .row.p-3
         button.btn.btn-primary(type="submit") Enviar Respuesta
-    else
+    - } else {
       .row 
-        p.text-justify
-          | Registro no encontrado 
-
+        p.text-center.text-danger= error 
+    - }
     

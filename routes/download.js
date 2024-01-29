@@ -29,14 +29,14 @@ router.post('/', async function (req, res, next) {
 
   var ticketId = req.body.guest;
   ticketId = ticketId.substr(ticketId.length - 17);
-  var customerName = "Carlos"
-  var generatedTicket = await createTicket(customerName, ticketId, uniqueId, 'tickets/generated/' + uniqueId + '.png')
+  var locationTable = "TBD" // TODO get table info from the database
+  var generatedTicket = await createTicket(locationTable, ticketId, uniqueId, 'tickets/generated/' + uniqueId + '.png')
 
   switch (req.body.downloadFormat) {
     case "pdf":
       var pdfFile = imageToPdf(generatedTicket);
       // var fileContents = Buffer.from(pdfFile, "base64");
-      var fileName = customerName + ".pdf";
+      var fileName = locationTable + ".pdf";
       res.writeHead(200, { 'content-type': 'application/pdf' });
       res.write(pdfFile);
       res.end();
@@ -105,13 +105,13 @@ async function generateBarcode(text) {
   return Buffer.from(svg)
 }
 
-async function generateSVG(text) {
+async function generateSVG(text, size, color) {
   const textToSVG = TextToSVG.loadSync()
   try {
     const svg = textToSVG.getSVG(text, {
-      fontSize: 35,
+      fontSize: size,
       anchor: 'top',
-      attributes: { fill: 'white' },
+      attributes: { fill: color },
     })
 
     return Buffer.from(svg)
@@ -121,13 +121,14 @@ async function generateSVG(text) {
   }
 }
 
-async function createTicket(customerName, ticketId, uniqueId, outputPath) {
+async function createTicket(locationTable, ticketId, uniqueId, outputPath) {
 
   try {// Generate  barcode for the ticket as buffer
     // const barcodeImageBuffer = await generateBarcode(ticketId)
     // Generate customer name for ticket as buffer
-    const customerNameImageBuffer = await generateSVG(ticketId)
-    const rotated = await sharp(customerNameImageBuffer).rotate(270).toBuffer();
+    const ticketIdImageBuffer = await generateSVG(ticketId, 35, 'white')
+    const locationImageBuffer = await generateSVG(locationTable, 45, 'black')
+    const rotatedTicketId = await sharp(ticketIdImageBuffer).rotate(270).toBuffer();
     const qrcodeImageBuffer = await generateQRCode(serviceURL + arrivingEndPoint + uniqueId)
 
     const ticketTemplatePath = path.join(__dirname, '../tickets/_template.png')
@@ -139,8 +140,8 @@ async function createTicket(customerName, ticketId, uniqueId, outputPath) {
     // Params to overlay QR code onto the template
     const qrCodeOverlay = {
       input: qrcodeImageBuffer,
-      left: 1640,// Y position for QR code
-      top: 100, // X position for QR code 
+      left: 1615,// Y position for QR code
+      top: 60, // X position for QR code 
     }
 
     // const barcodeOverlay = {
@@ -149,16 +150,23 @@ async function createTicket(customerName, ticketId, uniqueId, outputPath) {
     //   top: 50,
     // }
 
-    const svgOverlay = {
-      input: rotated,
+    const tableLocationSvgOverlay = {
+      input: locationImageBuffer,
+      left: 1745,
+      top: 500,
+    }
+
+    const ticketIdSvgOverlay = {
+      input: rotatedTicketId,
       left: 60,
       top: 50,
     }
 
     var actualTicket = await ticket.composite([
       // barcodeOverlay,
+      tableLocationSvgOverlay,
       qrCodeOverlay,
-      svgOverlay,
+      ticketIdSvgOverlay,
     ]);
 
     // actualTicket.toFile(outputPath);
