@@ -20,7 +20,8 @@ block content
         }
     }
   form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/thanks")
-    input#guest(type="hidden" name="guest" value=guest._id)
+    input#guest_mail(type="hidden" name="guest_mail" value=guest.mail)
+    input#guest_mobile(type="hidden" name="guest_mobile" value=guest.mobile)
     .row
       .text-center
         h1 Registro de asistencia
