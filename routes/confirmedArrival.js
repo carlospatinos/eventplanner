@@ -9,6 +9,7 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+  // TODO update the record to make sure people arrived
   res.render('confirmedArrival', {});
 });
 
