@@ -18,6 +18,8 @@ const GuestSchema = new Guest({
     estimatedChildCount: { type: Number, min: 0, max: 30},
     confirmedAdultCount: { type: Number, min: 0, max: 30},
     confirmedChildCount: { type: Number, min: 0, max: 30},
+    arrivedAdultCount: { type: Number, min: 0, max: 30},
+    arrivedChildCount: { type: Number, min: 0, max: 30},
     responseDate: Date,
     updated: { type: Date, default: Date.now() },
 });

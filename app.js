@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var favicon = require('serve-favicon')
+
 const mongoose = require("mongoose");
 
 var indexRouter = require('./routes/index');
@@ -34,6 +36,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// console.log();
+app.use(favicon(path.join(__dirname, 'public', 'cake.ico')))
+
 
 app.use('/', indexRouter);
 app.use('/confirm', confirmRouter);
