@@ -3,12 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var favicon = require('serve-favicon')
+
 const mongoose = require("mongoose");
 
 var indexRouter = require('./routes/index');
 var confirmRouter = require('./routes/confirm');
 var thanksRouter = require('./routes/thanks');
 var downloadRouter = require('./routes/download');
+var arrivedRouter = require('./routes/arrivedQR');
+var confirmedArrivalRouter = require('./routes/confirmedArrival');
 
 var app = express();
 
@@ -32,19 +36,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// console.log();
+app.use(favicon(path.join(__dirname, 'public', 'cake.ico')))
+
 
 app.use('/', indexRouter);
 app.use('/confirm', confirmRouter);
 app.use('/thanks', thanksRouter);
 app.use('/download', downloadRouter);
+app.use('/arrivedQR', arrivedRouter);
+app.use('/confirmedArrival', confirmedArrivalRouter);
+
+
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

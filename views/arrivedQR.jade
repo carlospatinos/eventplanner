@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  script.
+    jQuery(document).ready(function($) {
+      $('#attendingSwitch').prop('checked', false);
+    });
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/confirmedArrival")
+    .row.p-3
+      .text-center
+        h1 Registro de llegada 
+    - if (guest) {
+      input#guest_mail(type="hidden" name="guest_mail" value=guest.mail)
+      input#guest_mobile(type="hidden" name="guest_mobile" value=guest.mobile)
+      .row 
+        .col
+        .col.h5 Invitado: 
+        .col.h5
+          b #{guest.name}
+        .col
+      .row
+        .col
+        .col.h5 Mesa: 
+        .col.h5
+          b #{guest.tableAllocated}
+        .col
+      .row
+        .col
+        .col.h5 Adulto(s): 
+        .col.h5
+          b #{guest.estimatedAdultCount} 
+        .col
+      .row 
+        .col
+        .col.h5 Menore(s): 
+        .col.h5
+          b #{guest.estimatedChildCount}
+        .col
+      .row 
+        hr
+      .row.mb-2
+        #arrivedAdultsDiv
+          label(for="arrivedAdults") 
+            span Adultos:
+          select#arrivedAdults.form-control(name="arrivedAdults")
+            -for(var i = 1;i<=guest.estimatedAdultCount;i++){
+            option(value="#{i}") #{i}
+            -}
+      .row.mb-2
+        if guest.estimatedChildCount > 0
+          #arrivedChildrenDiv
+            label(for="arrivedChildren") 
+              span Niños (menores de 3 años): 
+            select#arrivedChildren.form-control(name="arrivedChildren")
+              -for(var i = 0;i<=guest.estimatedChildCount;i++){
+              option(value="#{i}") #{i}
+              -}
+      .row.p-3
+        button.btn.btn-primary(type="submit") Guardar
+    - } else {
+      .row 
+        p.text-center.text-danger= error 
+    - }
+    
