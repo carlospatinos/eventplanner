@@ -1,6 +1,12 @@
 extends layout
 
 block content
+  script(src="https://www.wpromotions.eu/confetti.min.js")
+  if guest.response == "confirmed"
+    script.
+      confetti.start()
+      setTimeout(function(){confetti.stop();},1000)
+    
   form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/download")
     input#guest(type="hidden" name="guest" value=guest._id)
     input#guest_mail(type="hidden" name="guest_mail" value=guest.mail)
