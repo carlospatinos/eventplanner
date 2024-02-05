@@ -25,7 +25,7 @@ router.post('/', function(req, res, next) {
     assistingChildren = 0;
   }
 
-  // TODO add logic to handle different child ages and where to store them
+  //TODO add logic to handle different child ages and where to store them
   console.log("assistingChildren1 " + assistingChildren + req.body.assistingChildren1)
 
   

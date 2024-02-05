@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
-const Guest = mongoose.Schema;
-
-const GuestSchema = new Guest({
+const GuestSchema = new mongoose.Schema({
     userId: Number,
     name: { type: String, required: true },
     lastname: { type: String, required: true },

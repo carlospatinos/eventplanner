@@ -30,7 +30,7 @@ block content
         for (i=1; i<=child; i++){
           console.log('adding child ' + i);
           var id = "assistingChildren"+ i;
-          var fieldHTML = '<div class="form-group"><label for=' + id + '>Edad del menor ' + i + ':</label><input type="number" min="0" max="18" class="form-control" name=' + id + ' id=' + id + ' /><div>';
+          var fieldHTML = '<div class="form-group"><label for=' + id + '>Edad del menor ' + i + ':</label><input type="number" min="0" max="17" class="form-control" name=' + id + ' id=' + id + ' /><div>';
           $('#field_wrapper').append(fieldHTML);
         }
       }
@@ -51,14 +51,14 @@ block content
         | estamos felices de extender contigo la invitacion para celebrar los XV años de nuestra hija Karla Yaretzi.
       p 
         | Tenemos considerados  
-        b #{guest.estimatedAdultCount + guest.estimatedChildCount} 
-        //- b #{guest.estimatedAdultCount} 
-        //- | adulto(s) 
-        //- if guest.estimatedChildCount > 0
-        //-   | y 
-        //-   b #{guest.estimatedChildCount} 
-        //-   | [menor(es) de 3 años] 
-        | boletos para ti. 
+        //- b #{guest.estimatedAdultCount + guest.estimatedChildCount} 
+        b #{guest.estimatedAdultCount} 
+        | adulto(s) 
+        if guest.estimatedChildCount > 0
+          | y 
+          b #{guest.estimatedChildCount} 
+          | menor(es)  
+        | para ti. 
       p 
         | Esperamos contar con su presencia 
     .row 
