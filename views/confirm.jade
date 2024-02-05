@@ -3,12 +3,11 @@ extends layout
 block content
   script.
     jQuery(document).ready(function($) {
-      console.log("js is working");
       $("#assistingAdultsDiv").hide();
       $("#assistingChildrenDiv").hide();
       $('#attendingSwitch').prop('checked', false);
     });
-    function valueChanged() {
+    function assistingValueChanged() {
         if ($('#attendingSwitch').is(":checked")) {
           console.log("checked");
           $("#assistingAdultsDiv").show();
@@ -19,6 +18,26 @@ block content
           $("#assistingChildrenDiv").hide();
         }
     }
+
+
+    function assistingChildValueChanged() {
+      $('.field_wrapper').css('background-color', 'blue');
+      let child = $("#assistingChildren").find(":selected").val();
+      console.log("assistingChildValueChanged" + child);
+
+      $('#field_wrapper').empty();
+      if (child > 0) {
+        for (i=1; i<=child; i++){
+          console.log('adding child ' + i);
+          var id = "assistingChildren"+ i;
+          var fieldHTML = '<div class="form-group"><label for=' + id + '>Edad del menor ' + i + ':</label><input type="text" name="field_name[]" value="" class="form-control" name=' + id + ' id=' + id + '/><div>';
+          $('#field_wrapper').append(fieldHTML);
+        }
+      }
+      
+    }
+    
+
   form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/thanks")
     input#guest_mail(type="hidden" name="guest_mail" value=guest.mail)
     input#guest_mobile(type="hidden" name="guest_mobile" value=guest.mobile)
@@ -32,13 +51,14 @@ block content
         | estamos felices de extender contigo la invitacion para celebrar los XV años de nuestra hija Karla Yaretzi.
       p 
         | Tenemos considerados  
-        b #{guest.estimatedAdultCount} 
-        | adulto(s) 
-        if guest.estimatedChildCount > 0
-          | y 
-          b #{guest.estimatedChildCount} 
-          | [menor(es) de 3 años]
-        | para ti. 
+        b #{guest.estimatedAdultCount + guest.estimatedChildCount} 
+        //- b #{guest.estimatedAdultCount} 
+        //- | adulto(s) 
+        //- if guest.estimatedChildCount > 0
+        //-   | y 
+        //-   b #{guest.estimatedChildCount} 
+        //-   | [menor(es) de 3 años] 
+        | boletos para ti. 
       p 
         | Esperamos contar con su presencia 
     .row 
@@ -47,7 +67,7 @@ block content
       .col
       .col-4
         .form-check.form-switch
-          input#attendingSwitch.form-check-input.mr-2(type="checkbox" role="switch" value="1" onchange="valueChanged()" name="attendingSwitch" style="transform: scale(1.4);") 
+          input#attendingSwitch.form-check-input.mr-2(type="checkbox" role="switch" value="1" onchange="assistingValueChanged()" name="attendingSwitch" style="transform: scale(1.4);") 
           label.form-check-label(for="attendingSwitch") Asistiras
       .col
     .row.mb-2
@@ -63,19 +83,17 @@ block content
         #assistingChildrenDiv
           label(for="assistingChildren") 
             span Niños (menores de 3 años): 
-          select#assistingChildren.form-control(name="assistingChildren")
+          select#assistingChildren.form-control(name="assistingChildren" onchange="assistingChildValueChanged()")
             -for(var i = 0;i<=guest.estimatedChildCount;i++){
             option(value="#{i}") #{i}
             -}
-    //- .row 
-      //-     .form-group 
-      //-       label(for="name") Nombre 
-      //-       input#name.form-control(type="text", placeholder="Tu nombre" name="name")
-      //-     .form-group 
-      //-       label(for="lastname") Apellido 
-      //-       input#lastname.form-control(type="text", placeholder="Tu apellido" name="lastname")
-      //-     .form-group 
-      //-       label(for="age") Edad 
-      //-       input#age.form-control(type="text", placeholder="Edad" name="age")
+    
+    .row.mb-2(name="field_wrapper")
+      #field_wrapper
+        //- input#age.form-control(type="text", placeholder="Edad del menor" name="age1")
+        //- .form-group(hidden=false) 
+        //-   label(for="age") Menor #1 
+        //-   input#age.form-control(type="text", placeholder="Edad del menor" name="age1")
+    //- #section2.row.mb-2(name="section2")
     .row.p-3
       button.btn.btn-primary(type="submit") Enviar Respuesta

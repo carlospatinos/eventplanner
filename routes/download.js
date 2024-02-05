@@ -13,8 +13,8 @@ var bwipjs = require('bwip-js');
 // var { fileURLToPath } = require('url');
 var TextToSVG = require('text-to-svg');
 
-const serviceURL = "https://eventplanner-by3d.onrender.com";
-const arrivingEndPoint = "/arrived?userId="
+const serviceURL = process.env.APP_ENDPOINT_QR_REDIRECT;
+const arrivingEndPoint = "/arrivedQR?userId="
 
 /* GET users listing. */
 router.post('/', async function (req, res, next) {

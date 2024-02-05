@@ -44,7 +44,7 @@ app.use('/', indexRouter);
 app.use('/confirm', confirmRouter);
 app.use('/thanks', thanksRouter);
 app.use('/download', downloadRouter);
-app.use('/arrived', arrivedRouter);
+app.use('/arrivedQR', arrivedRouter);
 app.use('/confirmedArrival', confirmedArrivalRouter);
 
 
