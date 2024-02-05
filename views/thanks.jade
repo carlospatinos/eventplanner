@@ -5,7 +5,7 @@ block content
   if guest.response == "confirmed"
     script.
       confetti.start()
-      setTimeout(function(){confetti.stop();},1000)
+      setTimeout(function(){confetti.stop();},1500)
     
   form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/download")
     input#guest(type="hidden" name="guest" value=guest._id)
