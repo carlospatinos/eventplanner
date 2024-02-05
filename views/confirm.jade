@@ -30,7 +30,7 @@ block content
         for (i=1; i<=child; i++){
           console.log('adding child ' + i);
           var id = "assistingChildren"+ i;
-          var fieldHTML = '<div class="form-group"><label for=' + id + '>Edad del menor ' + i + ':</label><input type="text" name="field_name[]" value="" class="form-control" name=' + id + ' id=' + id + '/><div>';
+          var fieldHTML = '<div class="form-group"><label for=' + id + '>Edad del menor ' + i + ':</label><input type="number" min="0" max="18" class="form-control" name=' + id + ' id=' + id + ' /><div>';
           $('#field_wrapper').append(fieldHTML);
         }
       }
@@ -82,14 +82,14 @@ block content
       if guest.estimatedChildCount > 0
         #assistingChildrenDiv
           label(for="assistingChildren") 
-            span Niños (menores de 3 años): 
+            span Menores: 
           select#assistingChildren.form-control(name="assistingChildren" onchange="assistingChildValueChanged()")
             -for(var i = 0;i<=guest.estimatedChildCount;i++){
             option(value="#{i}") #{i}
             -}
     
-    .row.mb-2(name="field_wrapper")
-      #field_wrapper
+    .row.mb-2
+      #field_wrapper(name="field_wrapper")
         //- input#age.form-control(type="text", placeholder="Edad del menor" name="age1")
         //- .form-group(hidden=false) 
         //-   label(for="age") Menor #1 

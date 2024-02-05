@@ -24,6 +24,10 @@ router.post('/', function(req, res, next) {
     assistingAdults = 0;
     assistingChildren = 0;
   }
+
+  // TODO add logic to handle different child ages and where to store them
+  console.log("assistingChildren1 " + assistingChildren + req.body.assistingChildren1)
+
   
   console.log("Updating " + guest_mail + " with response as " + response + " confirmedAdults ["+ assistingAdults + "] and confirmedChildren[" + assistingChildren + "]");
   const updates = {response: response, confirmedAdultCount: assistingAdults, confirmedChildCount: assistingChildren, responseDate: Date.now()};
