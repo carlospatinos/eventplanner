@@ -14,44 +14,44 @@ block content
       input#guest_mobile(type="hidden" name="guest_mobile" value=guest.mobile)
       .row 
         .col
-        .col.h5 Invitado: 
+        .col.h5 Nombre del invitado: 
         .col.h5
-          b #{guest.name}
+          b #{guest.name}. 
         .col
       .row
         .col
-        .col.h5 Mesa: 
+        .col.h5 Mesa asignada: 
         .col.h5
           b #{guest.tableAllocated}
-        .col
+        .col-lg
       .row
         .col
-        .col.h5 Adulto(s): 
+        .col.h5 # total de adulto(s): 
         .col.h5
           b #{guest.estimatedAdultCount} 
-        .col
+        .col-lg
       .row 
         .col
-        .col.h5 Menore(s): 
+        .col.h5 # total de menore(s): 
         .col.h5
           b #{guest.estimatedChildCount}
-        .col
+        .col-lg
       .row 
         hr
       .row.mb-2
         #arrivedAdultsDiv
           label(for="arrivedAdults") 
             span Adultos:
-          select#arrivedAdults.form-control(name="arrivedAdults")
-            -for(var i = 1;i<=guest.estimatedAdultCount;i++){
+          select#assistingAdults.form-control(name="assistingAdults")
+            -for(var i = 1;i<=guest.estimatedAdultCount; i++){
             option(value="#{i}") #{i}
             -}
       .row.mb-2
         if guest.estimatedChildCount > 0
-          #arrivedChildrenDiv
-            label(for="arrivedChildren") 
+          #assistingChildrenDiv
+            label(for="assistingChildren") 
               span Niños (menores de 3 años): 
-            select#arrivedChildren.form-control(name="arrivedChildren")
+            select#assistingChildren.form-control(name="assistingChildren")
               -for(var i = 0;i<=guest.estimatedChildCount;i++){
               option(value="#{i}") #{i}
               -}

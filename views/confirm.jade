@@ -75,7 +75,7 @@ block content
         label(for="assistingAdults") 
           span Adultos:
         select#assistingAdults.form-control(name="assistingAdults")
-          -for(var i = 1;i<=guest.estimatedAdultCount;i++){
+          -for(var i = guest.estimatedAdultCount; i>=1; i--){
           option(value="#{i}") #{i}
           -}
     .row.mb-2
@@ -84,7 +84,7 @@ block content
           label(for="assistingChildren") 
             span Menores: 
           select#assistingChildren.form-control(name="assistingChildren" onchange="assistingChildValueChanged()")
-            -for(var i = 0;i<=guest.estimatedChildCount;i++){
+            -for(var i = guest.estimatedChildCount; i>=0; i--){
             option(value="#{i}") #{i}
             -}
     
