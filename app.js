@@ -15,6 +15,7 @@ var arrivedRouter = require('./routes/arrivedQR');
 var confirmedArrivalRouter = require('./routes/confirmedArrival');
 
 var reportingRouter = require('./routes/reportingDetails');
+var reportingGraphRouter = require('./routes/reportingGraph');
 
 var app = express();
 
@@ -49,6 +50,8 @@ app.use('/download', downloadRouter);
 app.use('/arrivedQR', arrivedRouter);
 app.use('/confirmedArrival', confirmedArrivalRouter);
 app.use('/reporting', reportingRouter);
+app.use('/reportingGraph', reportingGraphRouter);
+
 
 
 
