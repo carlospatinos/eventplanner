@@ -3,42 +3,66 @@ extends layout
 block content
   script.
     jQuery(document).ready(function($) {
+      $('#attendingSwitch').prop('checked', false);
       $("#assistingAdultsDiv").hide();
       $("#assistingChildrenDiv").hide();
-      $('#attendingSwitch').prop('checked', false);
     });
     function assistingValueChanged() {
         if ($('#attendingSwitch').is(":checked")) {
           console.log("checked");
           $("#assistingAdultsDiv").show();
           $("#assistingChildrenDiv").show();
+          dynamicallyCreateAssistingChild();
         } else {
           console.log("nooo checked");
           $("#assistingAdultsDiv").hide();
           $("#assistingChildrenDiv").hide();
+          $('#field_wrapper').empty();
         }
+        
     }
 
-
-    function assistingChildValueChanged() {
-      $('.field_wrapper').css('background-color', 'blue');
-      let child = $("#assistingChildren").find(":selected").val();
-      console.log("assistingChildValueChanged" + child);
+    function dynamicallyCreateAssistingChild() {
+      let childNumber = $("#assistingChildren").find(":selected").val();
+      console.log("dynamicallyCreateAssistingChild: " + childNumber);
 
       $('#field_wrapper').empty();
-      if (child > 0) {
-        for (i=1; i<=child; i++){
+      if (childNumber > 0) {
+        for (i=1; i<=childNumber; i++){
           console.log('adding child ' + i);
           var id = "assistingChildren"+ i;
-          var fieldHTML = '<div class="form-group"><label for=' + id + '>Edad del menor ' + i + ':</label><input type="number" min="0" max="17" class="form-control" name=' + id + ' id=' + id + ' /><div>';
+          var fieldHTML = '<div class="form-group"><label for=' + id + '>Edad del menor ' + i + ':</label><input required type="number" min="0" max="17" class="form-control" name=' + id + ' id=' + id + ' /><div>';
           $('#field_wrapper').append(fieldHTML);
         }
       }
       
     }
+
+    //- onsubmit="return validate(this)"
+    //- function validate(form) {
+    //-   let childNumber = $("#assistingChildren").find(":selected").val();
+    //-   console.log("dynamicallyCreateAssistingChild: " + childNumber);
+
+    //-   let focusField = undefined;
+    //-   let valid = true;
+    //-   for(i=childNumber; i>=1; i--) {
+    //-     let inputField = $('#assistingChildren' + i).val()
+    //-     if (inputField == undefined || inputField == "") {
+    //-       console.log("invalid value at [assistingChildren" + i + "]");
+    //-       focusField = $('#assistingChildren' + i);
+    //-       valid = false;
+    //-       break;
+    //-     } 
+    //-   }
+
+    //-   console.log("valid " + valid);
+
+    //-   if (!valid) focusField.focus();
+    //-   return valid;
+    //- }
     
 
-  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/thanks")
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/thanks" )
     input#guest_mail(type="hidden" name="guest_mail" value=guest.mail)
     input#guest_mobile(type="hidden" name="guest_mobile" value=guest.mobile)
     .row
@@ -75,7 +99,7 @@ block content
         label(for="assistingAdults") 
           span Adultos:
         select#assistingAdults.form-control(name="assistingAdults")
-          -for(var i = 1;i<=guest.estimatedAdultCount;i++){
+          -for(var i = guest.estimatedAdultCount; i>=1; i--){
           option(value="#{i}") #{i}
           -}
     .row.mb-2
@@ -83,17 +107,12 @@ block content
         #assistingChildrenDiv
           label(for="assistingChildren") 
             span Menores: 
-          select#assistingChildren.form-control(name="assistingChildren" onchange="assistingChildValueChanged()")
-            -for(var i = 0;i<=guest.estimatedChildCount;i++){
+          select#assistingChildren.form-control(name="assistingChildren" onchange="dynamicallyCreateAssistingChild()")
+            -for(var i = guest.estimatedChildCount; i>=0; i--){
             option(value="#{i}") #{i}
             -}
     
     .row.mb-2
       #field_wrapper(name="field_wrapper")
-        //- input#age.form-control(type="text", placeholder="Edad del menor" name="age1")
-        //- .form-group(hidden=false) 
-        //-   label(for="age") Menor #1 
-        //-   input#age.form-control(type="text", placeholder="Edad del menor" name="age1")
-    //- #section2.row.mb-2(name="section2")
     .row.p-3
       button.btn.btn-primary(type="submit") Enviar Respuesta

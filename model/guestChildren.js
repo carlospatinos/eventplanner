@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 const GuestChildrenSchema = new Schema({
     userId: Number,
-    childrenAge: { type: Number, min: 0, max: 17},
-    mainGuest:{
+    childrenAge: { type: Number, min: 0, max: 17 },
+    mainGuest: {
         type: Schema.Types.ObjectId,
-        ref: guest,
+        ref: 'guest',
     },
     responseDate: Date,
     updated: { type: Date, default: Date.now() },
 });
 
 // Compile model from schema
-const GuestChildren = mongoose.model("guest", GuestChildrenSchema);
+const GuestChildren = mongoose.model("guestChildrenDetails", GuestChildrenSchema);
 module.exports = { GuestChildren };
