@@ -20,10 +20,11 @@ const GuestSchema = new Schema({
     arrivedAdultCount: { type: Number, min: 0, max: 30 },
     arrivedChildCount: { type: Number, min: 0, max: 30 },
     responseDate: Date,
-    guestChildrenDetails: [{
-        type: Schema.Types.ObjectId,
-        ref: "guestChildrenDetails",
-    }],
+    // guestChildrenDetails: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: "guestChildrenDetails",
+    // }],
+    guestChildrenAges: [{ type: Number, min: 0, max: 17 }],
     updated: { type: Date, default: Date.now() },
 });
 

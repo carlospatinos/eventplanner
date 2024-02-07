@@ -28,13 +28,13 @@ block content
         .col
         .col.h5 Adulto(s): 
         .col.h5
-          b #{guest.estimatedAdultCount} 
+          b #{guest.confirmedAdultCount} 
         .col
       .row 
         .col
         .col.h5 Menore(s): 
         .col.h5
-          b #{guest.estimatedChildCount}
+          b #{guest.confirmedChildCount}
         .col
       .row 
         hr
@@ -43,16 +43,16 @@ block content
           label(for="arrivedAdults") 
             span Adultos:
           select#arrivedAdults.form-control(name="arrivedAdults")
-            -for(var i = 1;i<=guest.estimatedAdultCount;i++){
+            -for(var i = guest.confirmedAdultCount; i>=1; i--){
             option(value="#{i}") #{i}
             -}
       .row.mb-2
-        if guest.estimatedChildCount > 0
+        if guest.confirmedChildCount > 0
           #arrivedChildrenDiv
             label(for="arrivedChildren") 
-              span Niños (menores de 3 años): 
+              span Menores: 
             select#arrivedChildren.form-control(name="arrivedChildren")
-              -for(var i = 0;i<=guest.estimatedChildCount;i++){
+              -for(var i = guest.confirmedChildCount; i>=0; i--){
               option(value="#{i}") #{i}
               -}
       .row.p-3

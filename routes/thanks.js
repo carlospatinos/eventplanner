@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var { GuestModel } = require('../model/guest');
-var { GuestChildren } = require('../model/guestChildren');
+// var { GuestChildren } = require('../model/guestChildren');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -26,29 +26,16 @@ router.post('/', function (req, res, next) {
     assistingChildren = 0;
   }
 
-
-
-
-  // console.log("Updating " + guest_mail + " with response as " + response + " confirmedAdults [" + assistingAdults + "] and confirmedChildren[" + assistingChildren + "]");
-
   var guestChildrenDetailsArray = [];
   for (i = 1; i <= assistingChildren; i++) {
-    // console.log("assistingChildren-" + i + " " + req.body['assistingChildren' + i]);
-    guestChildrenDetailsArray.push(new GuestChildren({ childrenAge: req.body['assistingChildren' + i] }))
+    guestChildrenDetailsArray.push(req.body['assistingChildren' + i]);
   }
 
-
-  const updates = { response: response, confirmedAdultCount: assistingAdults, confirmedChildCount: assistingChildren, responseDate: Date.now(), guestChildrenDetails: guestChildrenDetailsArray };
+  const updates = { response: response, confirmedAdultCount: assistingAdults, confirmedChildCount: assistingChildren, responseDate: Date.now(), guestChildrenAges: guestChildrenDetailsArray };
   GuestModel.findOneAndUpdate({ $or: [{ mail: guest_mail }, { mobile: guest_mobile }] }, updates, { new: true }).then((record) => {
     if (record == null) {
       res.render('error', { error: 'Registro no encontrado' });
     } else {
-      console.log("------ before -------");
-      console.log(record);
-      guestChildrenDetailsArray.forEach((item, index) => {
-        item.set('mainGuest', record);
-        item.save();
-      });
       res.render('thanks', { guest: record });
     }
   }).catch((err) => {

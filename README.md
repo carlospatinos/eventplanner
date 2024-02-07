@@ -51,4 +51,6 @@ graph LR;
     
 ```
 
-confirm(estimatedChildCount)->thanks(confirmedAdultCount)
+
+
+confirm.jade(estimatedChildCount->assistingChildren)->thanks(assistingChildren->confirmedChildCount)->arrivedQR.jade(arrivedChildren->arrivedChildCount)
