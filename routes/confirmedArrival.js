@@ -1,4 +1,5 @@
 var express = require('express');
+var constants = require('../lib/constants');
 var router = express.Router();
 
 var { GuestModel } = require('../model/guest');
@@ -14,20 +15,19 @@ router.post('/', function (req, res, next) {
 
   let arrivedAdults = req.body.arrivedAdults;
   let arrivedChildren = req.body.arrivedChildren;
-  let response = "arrived";
+  let response = constants.STATUS_ARRIVED;
 
-  const updates = {response: response, arrivedAdultCount: arrivedAdults, arrivedChildCount: arrivedChildren, responseDate: Date.now()};
+  const updates = { response: response, arrivedAdultCount: arrivedAdults, arrivedChildCount: arrivedChildren, responseDate: Date.now() };
 
-  // TODO update the record to make sure people arrived
-  GuestModel.findOneAndUpdate({ $or: [{ mail: guest_mail }, { mobile: guest_mobile }] }, updates, {new: true}).then((record) => {
+  GuestModel.findOneAndUpdate({ $or: [{ mail: guest_mail }, { mobile: guest_mobile }] }, updates, { new: true }).then((record) => {
     if (record == null) {
       res.render('error', { error: 'Registro no encontrado' });
     } else {
       res.render('confirmedArrival', { guest: record });
     }
   }).catch((err) => {
-      console.log("error" + err);
-      res.render('error', { error: 'Registro no encontrado' });
+    console.log("error" + err);
+    res.render('error', { error: 'Registro no encontrado' });
   });
 
 });

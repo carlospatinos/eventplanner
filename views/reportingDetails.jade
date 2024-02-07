@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  script.
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/reporting")
+    .row.p-3
+      .text-center
+        h1 Reporte de invitados por estado
+    .row.mb-2
+        #queryDiv
+          label(for="query") 
+            span Estado:
+          select#query.form-control(name="query")
+            -for(var i = 0; i<statuses.length; i++) {
+            option(value="#{statuses[i]}") #{statuses[i]}
+            -}
+    .row.p-3
+      button.btn.btn-primary(type="submit") Busqueda
+    .row.p-3
+      - if(totalRecords)
+          div
+            table.table
+              thead
+                tr
+                  th(scope="col") Nombre
+                  th(scope="col") Apellido
+                  th(scope="col") mail 
+                  th(scope="col") Estimado adultos
+                  th(scope="col") Estimado menores
+                  th(scope="col") Confirmado adultos
+                  th(scope="col") Confirmado menores
+                  th(scope="col") En sitio adultos
+                  th(scope="col") En sitio menores
+                  th(scope="col") Edad de menores
+              tbody
+                each guest, i in totalRecords
+                  tr
+                    td= guest.name
+                    td= guest.lastname
+                    td= guest.mail
+                    td= guest.estimatedAdultCount
+                    td= guest.estimatedChildCount
+                    td= guest.confirmedAdultCount
+                    td= guest.confirmedChildCount
+                    td= guest.arrivedAdultCount
+                    td= guest.arrivedChildCount
+                    td= guest.guestChildrenAges
+                      //- a(href='/admin/post/' + guest.name) #{guest.name} - #{guest.name}
+    

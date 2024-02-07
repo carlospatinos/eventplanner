@@ -14,6 +14,8 @@ var downloadRouter = require('./routes/download');
 var arrivedRouter = require('./routes/arrivedQR');
 var confirmedArrivalRouter = require('./routes/confirmedArrival');
 
+var reportingRouter = require('./routes/reportingDetails');
+
 var app = express();
 
 const mongoDbConnect = async () => {
@@ -46,6 +48,7 @@ app.use('/thanks', thanksRouter);
 app.use('/download', downloadRouter);
 app.use('/arrivedQR', arrivedRouter);
 app.use('/confirmedArrival', confirmedArrivalRouter);
+app.use('/reporting', reportingRouter);
 
 
 

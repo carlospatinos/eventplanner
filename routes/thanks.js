@@ -1,4 +1,5 @@
 var express = require('express');
+var constants = require('../lib/constants');
 var router = express.Router();
 
 var { GuestModel } = require('../model/guest');
@@ -19,9 +20,9 @@ router.post('/', function (req, res, next) {
   let response = undefined;
 
   if (attendingSwitch == "1") {
-    response = "confirmed";
+    response = constants.STATUS_CONFIRMED;
   } else {
-    response = "declined";
+    response = constants.STATUS_DECLINED;
     assistingAdults = 0;
     assistingChildren = 0;
   }

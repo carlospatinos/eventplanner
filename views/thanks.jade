@@ -7,7 +7,7 @@ block content
       confetti.start()
       setTimeout(function(){confetti.stop();},3000)
     
-  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/download")
+  form.container.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/download")
     //- TODO delete
     input#guest(type="hidden" name="guest" value=guest._id) 
     input#guest_mail(type="hidden" name="guest_mail" value=guest.mail)
