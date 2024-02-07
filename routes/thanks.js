@@ -29,27 +29,26 @@ router.post('/', function (req, res, next) {
 
 
 
-  console.log("Updating " + guest_mail + " with response as " + response + " confirmedAdults [" + assistingAdults + "] and confirmedChildren[" + assistingChildren + "]");
+  // console.log("Updating " + guest_mail + " with response as " + response + " confirmedAdults [" + assistingAdults + "] and confirmedChildren[" + assistingChildren + "]");
 
   var guestChildrenDetailsArray = [];
-  //TODO add logic to handle different child ages and where to store them
   for (i = 1; i <= assistingChildren; i++) {
-    console.log("assistingChildren-" + i + " " + req.body['assistingChildren' + i]);
-    guestChildrenDetailsArray.push(new GuestChildren({ childrenAge: req.body.assistingChildren1 }))
+    // console.log("assistingChildren-" + i + " " + req.body['assistingChildren' + i]);
+    guestChildrenDetailsArray.push(new GuestChildren({ childrenAge: req.body['assistingChildren' + i] }))
   }
 
-  var guestChildrenDetails = new GuestChildren({
-    childrenAge: req.body.assistingChildren1,
-  });
 
-  const updates = { response: response, confirmedAdultCount: assistingAdults, confirmedChildCount: assistingChildren, responseDate: Date.now(), guestChildrenDetails: guestChildrenDetails };
+  const updates = { response: response, confirmedAdultCount: assistingAdults, confirmedChildCount: assistingChildren, responseDate: Date.now(), guestChildrenDetails: guestChildrenDetailsArray };
   GuestModel.findOneAndUpdate({ $or: [{ mail: guest_mail }, { mobile: guest_mobile }] }, updates, { new: true }).then((record) => {
     if (record == null) {
       res.render('error', { error: 'Registro no encontrado' });
     } else {
-      guestChildrenDetails.set('mainGuest', record);
-      guestChildrenDetails.save()
+      console.log("------ before -------");
       console.log(record);
+      guestChildrenDetailsArray.forEach((item, index) => {
+        item.set('mainGuest', record);
+        item.save();
+      });
       res.render('thanks', { guest: record });
     }
   }).catch((err) => {
