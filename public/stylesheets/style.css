@@ -3,12 +3,49 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: #8064a2;
+  border: #29084d;
+}
+
+ {
+   {
+    /* .form-check-input,
+.form-check-input:active,
+.form-check-input:visited {
+  background-color: #8064a2;
+  border: #29084d;
+} */
+  }
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #8064a2;
+  border: #29084d;
+}
+
+ {
+   {
+    /* .form-switch-color: green;
+.form-switch-focus-color: orange;
+.form-switch-checked-color: red; */
+  }
+}
+
+.form-switch .form-check-input:not(:checked) {
+  background-color: #e4cffa;
+  border: #8064a2;
+}
+
 a {
-  color: #00B7FF;
+  color: #8064a2;
 }
 
 body {
-  background: url('/images/bg.jpeg') no-repeat center center fixed;
+  background: url("/images/bg.jpeg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -73,7 +110,6 @@ body {
   width: calc(4rem + 0.75rem);
   border-radius: 5rem;
 }
-
 
 /* hr {
   margin-top: 1rem;

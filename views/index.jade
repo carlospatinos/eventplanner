@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  form.container.p-3.mb-2.bg-white.needs-validation(method="POST", action="/confirm" novalidate style="--bs-bg-opacity: .8;")
+  form.container.p-3.mb-2.bg-white.needs-validation(method="POST", action="/confirm" style="--bs-bg-opacity: .8;")
     .row.p-3.d-flex.justify-content-center.align-items-center
       .text-center
         h1 Nos encantaria verte pronto!
@@ -12,11 +12,12 @@ block content
         p Por favor indica tu correo o telefono movil para iniciar el proceso de confirmación o declinación 
     .row.d-flex.justify-content-center.align-items-center
       .text-center
-        input#mailOrPhone.form-control(type="text", placeholder="Correo o telefono" name="mailOrPhone" required)
+        input#mailOrPhone.form-control(required type="text"  placeholder="Correo o telefono" name="mailOrPhone" )
     .row.p-3.d-flex.justify-content-center.align-items-center
       .text-center
         #has-warning
           spam.help-block.text-danger= error
     .row.p-3
-      button.btn.btn-primary(type="submit") Iniciar
+      button.btn.btn-primary.text-uppercase(type="submit") Iniciar
+    //-  style="border-radius: 0em;"
 

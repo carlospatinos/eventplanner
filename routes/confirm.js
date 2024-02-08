@@ -8,7 +8,7 @@ router.get('/', async function (req, res, next) {
   // const guest = new GuestModel({ name: "name", lastname: "lastname", mail:"mail", mobile:"mobile" });
   // obj = await guest.save();
   // console.log(obj)
-  res.render('confirm', {});
+  res.render('index', { error: 'Registro no encontrado' });
 });
 
 router.post('/', function (req, res, next) {
@@ -22,8 +22,8 @@ router.post('/', function (req, res, next) {
       res.render('confirm', { guest: record });
     }
   }).catch((err) => {
-      console.log("error" + err);
-      res.render('error', { error: 'mail o telefono no encontrado' });
+    console.log("error" + err);
+    res.render('error', { error: 'mail o telefono no encontrado' });
   });
 });
 
