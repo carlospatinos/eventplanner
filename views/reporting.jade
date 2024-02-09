@@ -1,0 +1,12 @@
+extends reportingLayout
+
+block content
+  script.
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/")
+    .row.p-3
+      .text-center
+        h1 Reporte
+    .row.p-3
+        a.btn.btn-primary.text-uppercase(href="/reportingDetails" role="button") Detalle
+    .row.p-3
+        a.btn.btn-primary.text-uppercase(href="/reportingGraph" role="button") Grafico

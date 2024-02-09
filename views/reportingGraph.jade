@@ -1,16 +1,12 @@
-extends layout
+extends reportingLayout
 
 block content
   script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js")
   form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/reporting")
     .row.p-3
       .text-center
-        h1 Reporte de invitados por estado
-    .row.p-3
-      button.btn.btn-primary.text-uppercase(type="submit") Busqueda
-    .row.p-3
-      p= xValues
-      p= yValues
+        h1 Resumen de invitados por estado
+    .row.p-3.h-100.d-flex.align-items-center.justify-content-center
       canvas(id="myChart" style="width:100%;max-width:600px")
   script.
     var xValues = [!{xValues}]

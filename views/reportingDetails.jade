@@ -1,8 +1,8 @@
-extends layout
+extends reportingLayout
 
 block content
   script.
-  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/reporting")
+  form.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/reportingDetails")
     .row.p-3
       .text-center
         h1 Reporte de invitados por estado
@@ -16,7 +16,7 @@ block content
             -}
     .row.p-3
       button.btn.btn-primary.text-uppercase(type="submit") Busqueda
-    .row.p-3
+    .row.p-3.table-responsive
       - if(totalRecords)
           div
             table.table

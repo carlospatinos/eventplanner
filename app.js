@@ -14,7 +14,8 @@ var downloadRouter = require('./routes/download');
 var arrivedRouter = require('./routes/arrivedQR');
 var confirmedArrivalRouter = require('./routes/confirmedArrival');
 
-var reportingRouter = require('./routes/reportingDetails');
+var reportingRouter = require('./routes/reporting');
+var reportingDetailsRouter = require('./routes/reportingDetails');
 var reportingGraphRouter = require('./routes/reportingGraph');
 
 var app = express();
@@ -50,10 +51,8 @@ app.use('/download', downloadRouter);
 app.use('/arrivedQR', arrivedRouter);
 app.use('/confirmedArrival', confirmedArrivalRouter);
 app.use('/reporting', reportingRouter);
+app.use('/reportingDetails', reportingDetailsRouter);
 app.use('/reportingGraph', reportingGraphRouter);
-
-
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
