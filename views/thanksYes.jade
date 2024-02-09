@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  script(src="https://www.wpromotions.eu/confetti.min.js")
+  script.
+    confetti.start()
+    setTimeout(function(){confetti.stop();},3000)
+    
+  form.container.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/download")
+    input#guest(type="hidden" name="guest" value=guest._id) 
+    input#guest_mail(type="hidden" name="guest_mail" value=guest.mail)
+    input#guest_mobile(type="hidden" name="guest_mobile" value=guest.mobile)
+    input#guest_count(type="hidden" name="guest_count" value=guest.confirmedAdultCount + guest.confirmedChildCount)
+    .row
+      .text-center
+        h1 Gracias por tu respuesta
+    .row 
+      hr
+    .row 
+      p.text-center
+        | Ahora puedes descargar tus boletos en diferentes formatos
+    .row.p-3
+      select#downloadFormat(name="downloadFormat").form-control
+        option(value="pdf") PDF
+        option(value="png") Imagen
+        //- option(value="pkass") Pase Movil
+    .row  
+      button.btn.btn-primary.text-uppercase(type="submit") Descargar

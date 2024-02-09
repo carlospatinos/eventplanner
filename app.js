@@ -18,6 +18,8 @@ var reportingRouter = require('./routes/reporting');
 var reportingDetailsRouter = require('./routes/reportingDetails');
 var reportingGraphRouter = require('./routes/reportingGraph');
 
+var mapsRouter = require('./routes/maps');
+
 var app = express();
 
 const mongoDbConnect = async () => {
@@ -53,6 +55,8 @@ app.use('/confirmedArrival', confirmedArrivalRouter);
 app.use('/reporting', reportingRouter);
 app.use('/reportingDetails', reportingDetailsRouter);
 app.use('/reportingGraph', reportingGraphRouter);
+app.use('/maps', mapsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

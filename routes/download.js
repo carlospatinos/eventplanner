@@ -20,6 +20,7 @@ const arrivingEndPoint = "/arrivedQR?userId="
 router.post('/', async function (req, res, next) {
   var guest_mail = req.body.guest_mail;
   var guest_mobile = req.body.guest_mobile;
+  var guest_count = req.body.guest_count;
 
   var uniqueId = guest_mail;
   if (uniqueId == undefined) {
@@ -30,7 +31,7 @@ router.post('/', async function (req, res, next) {
   var ticketId = req.body.guest;
   ticketId = ticketId.substr(ticketId.length - 17);
   var locationTable = "TBD" // TODO get table info from the database
-  var generatedTicket = await createTicket(locationTable, ticketId, uniqueId, 'tickets/generated/' + uniqueId + '.png')
+  var generatedTicket = await createTicket(locationTable, ticketId, uniqueId, guest_count, 'tickets/generated/' + uniqueId + '.png')
 
   switch (req.body.downloadFormat) {
     case "pdf":
@@ -121,15 +122,16 @@ async function generateSVG(text, size, color) {
   }
 }
 
-async function createTicket(locationTable, ticketId, uniqueId, outputPath) {
+async function createTicket(locationTable, ticketId, uniqueId, guestCount, outputPath) {
 
   try {// Generate  barcode for the ticket as buffer
     // const barcodeImageBuffer = await generateBarcode(ticketId)
     // Generate customer name for ticket as buffer
-    const ticketIdImageBuffer = await generateSVG(ticketId, 35, 'white')
-    const locationImageBuffer = await generateSVG(locationTable, 45, 'black')
+    const ticketIdImageBuffer = await generateSVG(ticketId, 35, 'white');
+    const locationImageBuffer = await generateSVG(locationTable, 45, 'black');
+    const guestCountImageBuffer = await generateSVG(guestCount, 35, 'black');
     const rotatedTicketId = await sharp(ticketIdImageBuffer).rotate(270).toBuffer();
-    const qrcodeImageBuffer = await generateQRCode(serviceURL + arrivingEndPoint + uniqueId)
+    const qrcodeImageBuffer = await generateQRCode(serviceURL + arrivingEndPoint + uniqueId);
 
     const ticketTemplatePath = path.join(__dirname, '../tickets/_template.png')
     // console.log(ticketTemplatePath)
@@ -140,8 +142,8 @@ async function createTicket(locationTable, ticketId, uniqueId, outputPath) {
     // Params to overlay QR code onto the template
     const qrCodeOverlay = {
       input: qrcodeImageBuffer,
-      left: 1615,// Y position for QR code
-      top: 60, // X position for QR code 
+      left: 1650,// Y position for QR code
+      top: 85, // X position for QR code 
     }
 
     // const barcodeOverlay = {
@@ -152,7 +154,7 @@ async function createTicket(locationTable, ticketId, uniqueId, outputPath) {
 
     const tableLocationSvgOverlay = {
       input: locationImageBuffer,
-      left: 1745,
+      left: 1765,
       top: 500,
     }
 
@@ -162,8 +164,15 @@ async function createTicket(locationTable, ticketId, uniqueId, outputPath) {
       top: 50,
     }
 
+    const guestCountSvgOverlay = {
+      input: guestCountImageBuffer,
+      left: 1300,
+      top: 155,
+    }
+
     var actualTicket = await ticket.composite([
       // barcodeOverlay,
+      guestCountSvgOverlay,
       tableLocationSvgOverlay,
       qrCodeOverlay,
       ticketIdSvgOverlay,

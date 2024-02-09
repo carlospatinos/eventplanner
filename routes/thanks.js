@@ -7,7 +7,7 @@ var { GuestModel } = require('../model/guest');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('thanks', { title: 'Confirmación de asistencia' });
+  res.render('thanksNo', { title: 'Confirmación de asistencia' });
 });
 
 router.post('/', function (req, res, next) {
@@ -37,7 +37,11 @@ router.post('/', function (req, res, next) {
     if (record == null) {
       res.render('error', { error: 'Registro no encontrado' });
     } else {
-      res.render('thanks', { guest: record });
+      if (record.response == constants.STATUS_CONFIRMED) {
+        res.render('thanksYes', { guest: record });
+      } else {
+        res.render('thanksNo', { guest: record });
+      }
     }
   }).catch((err) => {
     console.log("error" + err);
