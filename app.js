@@ -17,6 +17,7 @@ var confirmedArrivalRouter = require('./routes/confirmedArrival');
 var reportingRouter = require('./routes/reporting');
 var reportingDetailsRouter = require('./routes/reportingDetails');
 var reportingGraphRouter = require('./routes/reportingGraph');
+var reportingGraphChildrenRouter = require('./routes/reportingGraphChildren');
 
 var mapsRouter = require('./routes/maps');
 
@@ -57,6 +58,8 @@ app.use('/confirmedArrival', confirmedArrivalRouter);
 app.use('/reporting', reportingRouter);
 app.use('/reportingDetails', reportingDetailsRouter);
 app.use('/reportingGraph', reportingGraphRouter);
+app.use('/reportingGraphChildren', reportingGraphChildrenRouter);
+
 app.use('/maps', mapsRouter);
 
 

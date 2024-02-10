@@ -18,10 +18,13 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const mailOrPhone = req.body.mailOrPhone
+  const mailReq = req.body.mail;
+  const phone = req.body.phone
 
-  GuestModel.findOne({ $or: [{ mail: mailOrPhone }, { mobile: mailOrPhone }] }).then((record) => {
-    // console.log("Result :", record);
+  const query = { $or: [{ mail: mailReq }, { mobile: phone }] };
+
+  GuestModel.findOne(query).then((record) => {
+    console.log("Result :", record);
     if (record == null) {
       res.render('index', { eventDetails, error: 'Registro no encontrado' });
     } else {

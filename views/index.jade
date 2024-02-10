@@ -14,7 +14,13 @@ block content
         p Nos encantaria verte pronto! Por favor indica tu correo o telefono movil para iniciar el proceso de confirmación o declinación 
     .row.d-flex.justify-content-center.align-items-center
       .text-center
-        input#mailOrPhone.form-control(required type="text"  placeholder="Correo o telefono" name="mailOrPhone" )
+        input#mail.form-control( type="email"  placeholder="Correo electronico" name="mail" )
+    .row.d-flex.justify-content-center.align-items-center
+      .text-center
+        | o 
+    .row.d-flex.justify-content-center.align-items-center
+      .text-center
+        input#phone.form-control( type="tel"  placeholder="telefono a 10 digitos" name="phone" pattern="[0-9]{10}")
     .row.p-3.d-flex.justify-content-center.align-items-center
       .text-center
         #has-warning
