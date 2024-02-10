@@ -28,10 +28,10 @@ block content
         h6.text-center= regilousDetails.religiousPlace 
           a(href=regilousDetails.religiousUrl target="_blank" rel="noopener noreferrer")
             img(src="/images/location-map-pin-gray.svg" alt="Ubicacion Fiesta" style="width:26px;height:20px;")
-      .row 
+      .row
         p.text-center= regilousDetails.religiousAddress
       .row.text-center 
-        .col 
+        .col
           | Fecha
         .col
           | Hora 
@@ -41,9 +41,9 @@ block content
       .row 
         hr
     - if (partyDetails)
-      .row 
+      .row
         h6.text-center= partyDetails.partyPlace
-          a(href=partyDetails.partyUrl target="_blank" rel="noopener noreferrer") 
+          a(href=partyDetails.partyUrl target="_blank" rel="noopener noreferrer")
             img(src="/images/location-map-pin-gray.svg" alt="Ubicacion Fiesta" style="width:26px;height:20px;")
       .row 
         p.text-center= partyDetails.partyAddress
@@ -60,22 +60,22 @@ block content
     .row 
       p.text-center
         | Descarga tu boleto y agrega los eventos a Google Calendar con los siguientes links
-    .row
+    .row.p-1
       .col.text-center Boletos
       .col.text-center Iglesia
       .col.text-center Salon
     .row.p-3.mb-2
       .col.text-center
         input#downloadFormat(type="hidden" name="downloadFormat" value="pdf")
-        button.btn.btn-primary.text-uppercase(type="submit")
+        button.btn.btn-primary(type="submit")
           img(src="/images/ticket-gray.svg" alt="Agrega la iglesia a google calendar" style="width:26px;height:20px;")
         //- a(href="" target="_blank" rel="noopener noreferrer" onclick="this.closest('form').submit();return false;") 
         //-   img(src="/images/ticket-gray.svg" alt="Agrega la iglesia a google calendar" style="width:26px;height:20px;")
       .col.text-center
-        a(href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + celebration + " de " + mainGuest + " - Iglesia&details=https://carlospatinos.wixsite.com/xv-karlayaretzi&location=FVV5%2B9F Mexico City, Mexico&dates=20240810T180000/20240810T190000&recur=RRULE:FREQ%3DWEEKLY;UNTIL%3D20210603&ctz=America/Mexico_City" target="_blank" rel="noopener noreferrer") 
+        a.btn.btn-primary(href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + celebration + " de " + mainGuest + " - Iglesia&details=https://carlospatinos.wixsite.com/xv-karlayaretzi&location=FVV5%2B9F Mexico City, Mexico&dates=20240810T180000/20240810T190000&recur=RRULE:FREQ%3DWEEKLY;UNTIL%3D20210603&ctz=America/Mexico_City" target="_blank" rel="noopener noreferrer") 
           img(src="/images/church-gray.svg" alt="Agrega la iglesia a google calendar" style="width:26px;height:20px;")
       .col.text-center
-        a(href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + celebration + " de " + mainGuest + " - Fiesta&details=https://carlospatinos.wixsite.com/xv-karlayaretzi&location=FVR5%2B82 Mexico City, Mexico&dates=20240810T200000/20240811T020000&recur=RRULE:FREQ%3DWEEKLY;UNTIL%3D20210603&ctz=America/Mexico_City" target="_blank" rel="noopener noreferrer")  
+        a.btn.btn-primary(href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + celebration + " de " + mainGuest + " - Fiesta&details=https://carlospatinos.wixsite.com/xv-karlayaretzi&location=FVR5%2B82 Mexico City, Mexico&dates=20240810T200000/20240811T020000&recur=RRULE:FREQ%3DWEEKLY;UNTIL%3D20210603&ctz=America/Mexico_City" target="_blank" rel="noopener noreferrer")  
           img(src="/images/glass-cheers-gray.svg" alt="Agrega el salon a google calendar" style="width:26px;height:20px;")
     script. 
       //- $(document).ready(

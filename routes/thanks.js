@@ -33,6 +33,8 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+  console.log("=======>>>>" + ('20240810').toString());
+
   const guest_mobile = req.body.guest_mobile;
   const guest_mail = req.body.guest_mail;
 

@@ -29,10 +29,14 @@ a {
 }
 
 .btn-primary,
-.btn-primary:hover,
-.btn-primary:active,
 .btn-primary:visited {
   background-color: #8064a2;
+  border: #29084d;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: #b296d4;
   border: #29084d;
 }
 

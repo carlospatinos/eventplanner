@@ -90,9 +90,10 @@ block content
     .row
       .col
       .col-4
-        .container.align-items-center.justify-content-center.form-check.form-switch
-          input#attendingSwitch.form-check-input(type="checkbox" role="switch" value="1" onchange="assistingValueChanged()" name="attendingSwitch" style="transform: scale(1.4);") 
-          label.form-check-label.px-4(for="attendingSwitch") Asistiras 
+        .container.d-flex.align-items-center.justify-content-center
+          .form-check.form-switch
+            input#attendingSwitch.form-check-input(type="checkbox" role="switch" value="1" onchange="assistingValueChanged()" name="attendingSwitch" style="transform: scale(1.8);") 
+            label.form-check-label.px-4(for="attendingSwitch") Asistiras 
       .col
     .row.mb-2
       #assistingAdultsDiv
