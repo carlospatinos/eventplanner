@@ -43,7 +43,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // console.log();
-app.use(favicon(path.join(__dirname, 'public', 'cake.ico')))
+app.use(favicon(path.join(__dirname, 'public', 'images/cake.ico')))
 
 
 app.use('/', indexRouter);

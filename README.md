@@ -54,3 +54,8 @@ graph LR;
 
 
 confirm.jade(estimatedChildCount->assistingChildren)->thanks(assistingChildren->confirmedChildCount)->arrivedQR.jade(arrivedChildren->arrivedChildCount)
+
+
+## Useful links
+For timezones
+https://www.timezoneconverter.com/cgi-bin/zonehelp.tzc?cc=MX&ccdesc=Mexico

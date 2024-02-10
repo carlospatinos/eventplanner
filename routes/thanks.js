@@ -2,15 +2,27 @@ var express = require('express');
 var constants = require('../lib/constants');
 var router = express.Router();
 
+var mainGuest = process.env.MAIN_GUEST;
+var celebration = process.env.CELEBRATION;
 var religiousPlace = process.env.RELIGIOUS_PLACE;
 var religiousAddress = process.env.RELIGIOUS_ADDRESS;
+// TODO check encoding as it is not rendered properly for the + 
+var religiousAddressMapsCode = process.env.RELIGIOUS_ADDRESS_MAPSCODE;
 var religiousUrl = process.env.RELIGIOUS_URL;
+var religiousTime = process.env.RELIGIOUS_TIME;
+var religiousDate = process.env.RELIGIOUS_DATE;
+
+var partyTime = process.env.PARTY_TIME;
 var partyPlace = process.env.PARTY_PLACE;
 var partyAddress = process.env.PARTY_ADDRESS;
+// TODO check encoding as it is not rendered properly for the + 
+var partyAddressMapsCode = process.env.PARTY_ADDRESS_MAPSCODE;
 var partyUrl = process.env.PARTY_URL;
+var partyDate = process.env.PARTY_DATE;
 
-var regilousDetails = { religiousPlace, religiousAddress, religiousUrl }
-var partyDetails = { partyPlace, partyAddress, partyUrl }
+
+var regilousDetails = { religiousPlace, religiousAddress, religiousAddressMapsCode, religiousUrl, religiousTime, religiousDate }
+var partyDetails = { partyPlace, partyAddress, partyAddressMapsCode, partyUrl, partyTime, partyDate }
 
 var { GuestModel } = require('../model/guest');
 // var { GuestChildren } = require('../model/guestChildren');
@@ -48,7 +60,7 @@ router.post('/', function (req, res, next) {
       res.render('error', { error: 'Registro no encontrado' });
     } else {
       if (record.response == constants.STATUS_CONFIRMED) {
-        res.render('thanksYes', { regilousDetails, partyDetails, guest: record });
+        res.render('thanksYes', { mainGuest, celebration, regilousDetails, partyDetails, guest: record });
       } else {
         res.render('thanksNo', { guest: record });
       }
