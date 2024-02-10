@@ -6,7 +6,7 @@ block content
     confetti.start()
     setTimeout(function(){confetti.stop();},3000)
     
-  form.container.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" method="POST", action="/download")
+  form.container.p-3.mb-2.bg-white(style="--bs-bg-opacity: .8;" id="myForm" name="myForm" method="POST", action="/download")
     input#guest(type="hidden" name="guest" value=guest._id) 
     input#guest_mail(type="hidden" name="guest_mail" value=guest.mail)
     input#guest_mobile(type="hidden" name="guest_mobile" value=guest.mobile)
@@ -14,7 +14,11 @@ block content
     .row
       .text-center
         h1 Gracias por tu respuesta
-    #loader
+    #loader.text-center
+      //- .h-100.d-flex.align-items-center.justify-content-center(visible=false)
+      //- div(style="background:white") Loading
+      //- .spinner-border(role="status")
+      //-   span.visually-hidden Loading...
     .row 
       hr
     - if (regilousDetails)
@@ -63,36 +67,40 @@ block content
     .row.p-3.mb-2
       .col.text-center
         input#downloadFormat(type="hidden" name="downloadFormat" value="pdf")
-        a(href="" target="_blank" rel="noopener noreferrer" onclick="this.closest('form').submit();return false;") 
+        button.btn.btn-primary.text-uppercase(type="submit")
           img(src="/images/ticket-gray.svg" alt="Agrega la iglesia a google calendar" style="width:26px;height:20px;")
+        //- a(href="" target="_blank" rel="noopener noreferrer" onclick="this.closest('form').submit();return false;") 
+        //-   img(src="/images/ticket-gray.svg" alt="Agrega la iglesia a google calendar" style="width:26px;height:20px;")
       .col.text-center
         a(href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + celebration + " de " + mainGuest + " - Iglesia&details=https://carlospatinos.wixsite.com/xv-karlayaretzi&location=FVV5%2B9F Mexico City, Mexico&dates=20240810T180000/20240810T190000&recur=RRULE:FREQ%3DWEEKLY;UNTIL%3D20210603&ctz=America/Mexico_City" target="_blank" rel="noopener noreferrer") 
           img(src="/images/church-gray.svg" alt="Agrega la iglesia a google calendar" style="width:26px;height:20px;")
       .col.text-center
         a(href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + celebration + " de " + mainGuest + " - Fiesta&details=https://carlospatinos.wixsite.com/xv-karlayaretzi&location=FVR5%2B82 Mexico City, Mexico&dates=20240810T200000/20240811T020000&recur=RRULE:FREQ%3DWEEKLY;UNTIL%3D20210603&ctz=America/Mexico_City" target="_blank" rel="noopener noreferrer")  
           img(src="/images/glass-cheers-gray.svg" alt="Agrega el salon a google calendar" style="width:26px;height:20px;")
-    //- .row.p-3
-    //-   select#downloadFormat(name="downloadFormat").form-control
-    //-     option(value="pdf") PDF
-    //-     option(value="png") Imagen
-    //-     //- option(value="pkass") Pase Movil
-    //- .row  
-    //-   button.btn.btn-primary.text-uppercase(type="submit") Descargar
-  script. 
-    var spinner = $('#loader');
-    //- spinner.show();
-    $(function() {
-      $('form').submit(function(e) {
-        e.preventDefault();
-        spinner.show();
-        $.ajax({
-          url: '/download',
-          data: $(this).serialize(),
-          method: 'post',
-          dataType: 'JSON'
-        }).done(function(resp) {
-          spinner.hide();
-          alert(resp.status);
+    script. 
+      //- $(document).ready(
+      //-   function(){
+      //-     $('#myForm').on('submit', function(e){
+      //-         e.preventDefault();
+      //-         alert("ok")
+      //-     });
+      //- });
+
+      
+      var spinner = $('#loader');
+      //- spinner.show();
+      $(function() {
+        $('form').submit(function(e) {
+          spinner.show();
+          //- e.preventDefault();
+          //- $.ajax({
+          //-   url: '/download',
+          //-   data: $(this).serialize(),
+          //-   method: 'post',
+          //-   //- dataType: 'JSON'
+          //- }).done(function(resp) {
+          //-   spinner.hide();
+          //-   //- alert(resp.status);
+          //- });
         });
       });
-    });
