@@ -1,5 +1,5 @@
 var express = require('express');
-var constants = require('../lib/constants');
+var { STATUS, parseDate } = require('../lib/constants');
 var router = express.Router();
 
 var mainGuest = process.env.MAIN_GUEST;
@@ -33,7 +33,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  console.log("=======>>>>" + ('20240810').toString());
+  console.log("=======>>>>" + parseDate('20240810').toString());
 
   const guest_mobile = req.body.guest_mobile;
   const guest_mail = req.body.guest_mail;
@@ -44,9 +44,9 @@ router.post('/', function (req, res, next) {
   let response = undefined;
 
   if (attendingSwitch == "1") {
-    response = constants.STATUS_CONFIRMED;
+    response = STATUS.STATUS_CONFIRMED;
   } else {
-    response = constants.STATUS_DECLINED;
+    response = STATUS.STATUS_DECLINED;
     assistingAdults = 0;
     assistingChildren = 0;
   }
@@ -61,7 +61,7 @@ router.post('/', function (req, res, next) {
     if (record == null) {
       res.render('error', { error: 'Registro no encontrado' });
     } else {
-      if (record.response == constants.STATUS_CONFIRMED) {
+      if (record.response == STATUS.STATUS_CONFIRMED) {
         res.render('thanksYes', { mainGuest, celebration, regilousDetails, partyDetails, guest: record });
       } else {
         res.render('thanksNo', { guest: record });

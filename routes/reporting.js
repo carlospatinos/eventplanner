@@ -1,11 +1,11 @@
 var express = require('express');
-var constants = require('../lib/constants');
+var { STATUS } = require('../lib/constants');
 var router = express.Router();
 
 var { GuestModel } = require('../model/guest');
 
 router.get('/', async function (req, res, next) {
-  var statuses = [constants.STATUS_ARRIVED, constants.STATUS_CONFIRMED, constants.STATUS_DECLINED];
+  var statuses = [STATUS.STATUS_ARRIVED, STATUS.STATUS_CONFIRMED, STATUS.STATUS_DECLINED];
   console.log(statuses)
   res.render('reporting', { statuses });
 });

@@ -1,5 +1,5 @@
 var express = require('express');
-var constants = require('../lib/constants');
+var { STATUS } = require('../lib/constants');
 var router = express.Router();
 
 var { GuestModel } = require('../model/guest');
@@ -15,7 +15,7 @@ router.post('/', function (req, res, next) {
 
   let arrivedAdults = req.body.arrivedAdults;
   let arrivedChildren = req.body.arrivedChildren;
-  let response = constants.STATUS_ARRIVED;
+  let response = STATUS.STATUS_ARRIVED;
 
   const updates = { response: response, arrivedAdultCount: arrivedAdults, arrivedChildCount: arrivedChildren, responseDate: Date.now() };
 
