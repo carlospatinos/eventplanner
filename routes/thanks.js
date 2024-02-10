@@ -9,6 +9,8 @@ var religiousAddress = process.env.RELIGIOUS_ADDRESS;
 // TODO check encoding as it is not rendered properly for the + 
 var religiousAddressMapsCode = process.env.RELIGIOUS_ADDRESS_MAPSCODE;
 var religiousUrl = process.env.RELIGIOUS_URL;
+
+var religiousDateTime = process.env.RELIGIOUS_DATE_TIME;
 var religiousTime = process.env.RELIGIOUS_TIME;
 var religiousDate = process.env.RELIGIOUS_DATE;
 
@@ -20,8 +22,10 @@ var partyAddressMapsCode = process.env.PARTY_ADDRESS_MAPSCODE;
 var partyUrl = process.env.PARTY_URL;
 var partyDate = process.env.PARTY_DATE;
 
-
-var regilousDetails = { religiousPlace, religiousAddress, religiousAddressMapsCode, religiousUrl, religiousTime, religiousDate }
+var religiosDateTime = new Date(religiousDateTime);
+var religiosDateString = religiosDateTime.toLocaleString('es-MX', { year: "numeric", month: "short", day: "numeric" });
+var religiosTimeString = religiosDateTime.toLocaleString('es-MX', { hour: "numeric", minute: "2-digit", hour12: true });
+var regilousDetails = { religiousPlace, religiousAddress, religiousAddressMapsCode, religiousUrl, religiosDateTime, religiosDateString, religiosTimeString, religiousTime, religiousDate }
 var partyDetails = { partyPlace, partyAddress, partyAddressMapsCode, partyUrl, partyTime, partyDate }
 
 var { GuestModel } = require('../model/guest');
@@ -33,7 +37,9 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  console.log("=======>>>>" + parseDate('20240810').toString());
+  console.log(religiousDateTime);
+  console.log("religiosDateTime=======>>>>" + religiosDateTime);
+  console.log("religiosTimeString=======>>>>" + religiosTimeString);
 
   const guest_mobile = req.body.guest_mobile;
   const guest_mail = req.body.guest_mail;

@@ -36,8 +36,10 @@ block content
         .col
           | Hora 
       .row.text-center.p-3.mb-2
-        .col= regilousDetails.religiousDate
-        .col= regilousDetails.religiousTime 
+        .col= regilousDetails.religiosDateString
+        //- moment(regilousDetails.religiosDateTime).format('DD-MMM-YYYY')
+        //- regilousDetails.religiosDateString
+        .col= regilousDetails.religiosDateTime.toLocaleString('es-MX', { hour: "numeric", minute: "numeric", hour12: true })
       .row 
         hr
     - if (partyDetails)
