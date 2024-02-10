@@ -14,6 +14,7 @@ block content
     .row
       .text-center
         h1 Gracias por tu respuesta
+    #loader
     .row 
       hr
     - if (regilousDetails)
@@ -21,9 +22,10 @@ block content
         p.text-center
           | El evento sera celebrado como se muestra a continuacion
         h6.text-center= regilousDetails.religiousPlace 
+          a(href=regilousDetails.religiousUrl target="_blank" rel="noopener noreferrer")
+            img(src="/images/location-map-pin-gray.svg" alt="Ubicacion Fiesta" style="width:26px;height:20px;")
       .row 
-        p.text-center 
-          a(href=regilousDetails.religiousUrl target="_blank" rel="noopener noreferrer") #{regilousDetails.religiousAddress}
+        p.text-center= regilousDetails.religiousAddress
       .row.text-center 
         .col 
           | Fecha
@@ -37,17 +39,18 @@ block content
     - if (partyDetails)
       .row 
         h6.text-center= partyDetails.partyPlace
+          a(href=partyDetails.partyUrl target="_blank" rel="noopener noreferrer") 
+            img(src="/images/location-map-pin-gray.svg" alt="Ubicacion Fiesta" style="width:26px;height:20px;")
       .row 
-        p.text-center
-          a(href=partyDetails.partyUrl target="_blank" rel="noopener noreferrer") #{partyDetails.partyAddress}
+        p.text-center= partyDetails.partyAddress
       .row.text-center 
         .col 
           | Fecha
         .col
           | Hora 
       .row.text-center.p-3.mb-2
-        .col= regilousDetails.religiousDate
-        .col= regilousDetails.religiousTime 
+        .col= partyDetails.partyDate
+        .col= partyDetails.partyTime 
       .row 
         hr
     .row 
@@ -75,3 +78,21 @@ block content
     //-     //- option(value="pkass") Pase Movil
     //- .row  
     //-   button.btn.btn-primary.text-uppercase(type="submit") Descargar
+  script. 
+    var spinner = $('#loader');
+    //- spinner.show();
+    $(function() {
+      $('form').submit(function(e) {
+        e.preventDefault();
+        spinner.show();
+        $.ajax({
+          url: '/download',
+          data: $(this).serialize(),
+          method: 'post',
+          dataType: 'JSON'
+        }).done(function(resp) {
+          spinner.hide();
+          alert(resp.status);
+        });
+      });
+    });
