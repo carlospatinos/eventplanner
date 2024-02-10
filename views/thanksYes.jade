@@ -16,6 +16,22 @@ block content
         h1 Gracias por tu respuesta
     .row 
       hr
+    - if (regilousDetails)
+      .row 
+        p.text-center
+          b La celebracion religiosa sera en 
+        h5.text-center= regilousDetails.religiousPlace
+      .row 
+        p.text-center 
+          a(href=regilousDetails.religiousUrl target="_blank" rel="noopener noreferrer") #{regilousDetails.religiousAddress}
+    - if (partyDetails)
+      .row 
+        p.text-center
+          b La fiesta sera en
+        h5.text-center= partyDetails.partyPlace
+      .row 
+        p.text-center
+          a(href=partyDetails.partyUrl target="_blank" rel="noopener noreferrer") #{partyDetails.partyAddress}
     .row 
       p.text-center
         | Ahora puedes descargar tus boletos en diferentes formatos

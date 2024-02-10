@@ -2,6 +2,16 @@ var express = require('express');
 var constants = require('../lib/constants');
 var router = express.Router();
 
+var religiousPlace = process.env.RELIGIOUS_PLACE;
+var religiousAddress = process.env.RELIGIOUS_ADDRESS;
+var religiousUrl = process.env.RELIGIOUS_URL;
+var partyPlace = process.env.PARTY_PLACE;
+var partyAddress = process.env.PARTY_ADDRESS;
+var partyUrl = process.env.PARTY_URL;
+
+var regilousDetails = { religiousPlace, religiousAddress, religiousUrl }
+var partyDetails = { partyPlace, partyAddress, partyUrl }
+
 var { GuestModel } = require('../model/guest');
 // var { GuestChildren } = require('../model/guestChildren');
 
@@ -38,7 +48,7 @@ router.post('/', function (req, res, next) {
       res.render('error', { error: 'Registro no encontrado' });
     } else {
       if (record.response == constants.STATUS_CONFIRMED) {
-        res.render('thanksYes', { guest: record });
+        res.render('thanksYes', { regilousDetails, partyDetails, guest: record });
       } else {
         res.render('thanksNo', { guest: record });
       }
