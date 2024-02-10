@@ -4,7 +4,7 @@ var router = express.Router();
 var stream = require('stream');
 var Canvas = require('canvas');
 
-
+var template = process.env.TICKET_TEMPLATE;
 
 var sharp = require('sharp');
 var path = require('path');
@@ -86,7 +86,7 @@ async function generateQRCode(text) {
   let qrcodeBuffer = await bwipjs.toBuffer({
     bcid: 'qrcode',
     text,
-    scale: 5,
+    scale: 4,
   })
 
   return qrcodeBuffer
@@ -132,8 +132,8 @@ async function createTicket(locationTable, ticketId, uniqueId, guestCount, outpu
     const guestCountImageBuffer = await generateSVG(guestCount, 35, 'black');
     const rotatedTicketId = await sharp(ticketIdImageBuffer).rotate(270).toBuffer();
     const qrcodeImageBuffer = await generateQRCode(serviceURL + arrivingEndPoint + uniqueId);
-
-    const ticketTemplatePath = path.join(__dirname, '../tickets/_template.png')
+    console.log(serviceURL)
+    const ticketTemplatePath = path.join(__dirname, '../tickets/' + template)
     // console.log(ticketTemplatePath)
 
     const ticket = sharp(ticketTemplatePath)
@@ -142,7 +142,7 @@ async function createTicket(locationTable, ticketId, uniqueId, guestCount, outpu
     // Params to overlay QR code onto the template
     const qrCodeOverlay = {
       input: qrcodeImageBuffer,
-      left: 1650,// Y position for QR code
+      left: 1640,// Y position for QR code
       top: 85, // X position for QR code 
     }
 
@@ -166,8 +166,8 @@ async function createTicket(locationTable, ticketId, uniqueId, guestCount, outpu
 
     const guestCountSvgOverlay = {
       input: guestCountImageBuffer,
-      left: 1300,
-      top: 155,
+      left: 1305,
+      top: 160,
     }
 
     var actualTicket = await ticket.composite([
