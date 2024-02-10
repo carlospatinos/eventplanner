@@ -59,3 +59,5 @@ confirm.jade(estimatedChildCount->assistingChildren)->thanks(assistingChildren->
 ## Useful links
 For timezones
 https://www.timezoneconverter.com/cgi-bin/zonehelp.tzc?cc=MX&ccdesc=Mexico
+https://www.timestamp-converter.com/
+https://dencode.com/en/date/iso8601
