@@ -24,7 +24,6 @@ router.get('/', async function (req, res, next) {
 
     for (let i = 0; i < aggregateAdultRes.length; i++) {
       if (aggregateAdultRes[i]._id == STATUS.STATUS_CONFIRMED) {
-        console.log(aggregateAdultRes[i].totalAmount);
         xValues.push("18");
         yValues.push(aggregateAdultRes[i].totalAmount);
         break;
@@ -54,7 +53,6 @@ router.get('/', async function (req, res, next) {
   if (aggregateChildRes.length > 0) {
     data = aggregateChildRes[0]["guestChildrenAges_details"];
     for (let i = 0; i < data.length; i++) {
-      // console.log(data[i])
       xValues.push(data[i]["guestChildrenAges"]);
       yValues.push(data[i]["count"]);
     }

@@ -132,12 +132,9 @@ async function createTicket(locationTable, ticketId, uniqueId, guestCount, outpu
     const guestCountImageBuffer = await generateSVG(guestCount, 35, 'black');
     const rotatedTicketId = await sharp(ticketIdImageBuffer).rotate(270).toBuffer();
     const qrcodeImageBuffer = await generateQRCode(serviceURL + arrivingEndPoint + uniqueId);
-    console.log(serviceURL)
     const ticketTemplatePath = path.join(__dirname, '../tickets/' + template)
-    // console.log(ticketTemplatePath)
 
     const ticket = sharp(ticketTemplatePath)
-    // console.log(ticket)
 
     // Params to overlay QR code onto the template
     const qrCodeOverlay = {

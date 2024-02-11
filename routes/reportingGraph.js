@@ -24,12 +24,7 @@ router.get('/', async function (req, res, next) {
     xValues.push(data[i]._id);
     yValues.push(data[i].count);
   }
-
-  console.log(xValues);
   xValues = xValues.map(function (item) { return "'" + item + "'" }).join(',');
-  console.log(xValues);
-  console.log(yValues);
-
   res.render('reportingGraph', { xValues: xValues, yValues: yValues });
 });
 

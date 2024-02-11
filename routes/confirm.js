@@ -13,7 +13,6 @@ var eventDetails = { mainGuest, importantPeople, celebration }
 router.get('/', async function (req, res, next) {
   // const guest = new GuestModel({ name: "name", lastname: "lastname", mail:"mail", mobile:"mobile" });
   // obj = await guest.save();
-  // console.log(obj)
   res.render('index', { eventDetails, error: 'Registro no encontrado' });
 });
 
@@ -24,7 +23,7 @@ router.post('/', function (req, res, next) {
   const query = { $or: [{ mail: mailReq }, { mobile: phone }] };
 
   GuestModel.findOne(query).then((record) => {
-    console.log("Result :", record);
+    // console.log("Result :", record);
     if (record == null) {
       res.render('index', { eventDetails, error: 'Registro no encontrado' });
     } else {
