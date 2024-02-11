@@ -6,7 +6,7 @@ const GuestSchema = new Schema({
     name: { type: String, required: true },
     lastname: { type: String, required: true },
     mail: { type: String, required: true },
-    mobile: { type: String, required: true },
+    mobile: { type: Number, required: true },
     description: String,
     groupId: String,
     tableAllocated: String,
