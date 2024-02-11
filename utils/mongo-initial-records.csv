@@ -1,4 +1,4 @@
 name,lastname,mail,mobile,description,response,estimatedAdultCount,estimatedChildCount,confirmedAdultCount,confirmedChildCount,responseDate
-"Margarita","Salazar","mail","5557111113","Margarita y Daniel","pending",2,0,0,0,
-"Felipe","Extranio","mail2","5557111112","Felipe con tenis y ninos","pending",2,2,0,0,
+"Margarita","Salazar","mail@mail.com","5557111113","Margarita y Daniel","pending",2,0,0,0,
+"Felipe","Extranio","m@m.com","5557111112","Felipe con tenis y ninos","pending",2,2,0,0,
 "Carlos","Pat","c@p.com","5557111111","Pruevba","pending",2,2,0,0,
