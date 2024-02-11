@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  form.container.p-3.mb-2.bg-white.needs-validation(method="POST", action="/login" style="--bs-bg-opacity: .8;")
+    .row.p-3.d-flex.justify-content-center.align-items-center
+      .text-center
+        input#username.form-control( type="text"  placeholder="Usurio" name="username" required)
+    .row.p-3.d-flex.justify-content-center.align-items-center
+      .text-center
+        input#password.form-control( type="password"  placeholder="Password" name="password" required)
+    
+    .row.p-3.d-flex.justify-content-center.align-items-center
+      .text-center
+        #has-warning
+          spam.help-block.text-danger= error
+    .row.p-3
+      button.btn.btn-primary.text-uppercase(type="submit") Iniciar
+    //-  style="border-radius: 0em;"
+

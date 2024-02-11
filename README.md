@@ -7,6 +7,9 @@ Mongo DB free hosting is used at https://cloud.mongodb.com/
 ## Deployment
 NodeJS free hosting rener is used at https://dashboard.render.com/
 
+# Redis
+https://app.redislabs.com/#/databases
+
 ## Ticket generation
 Get a ticket template from here https://www.canva.com/ and put it under tickets/ with the name template.png
 
@@ -61,3 +64,4 @@ For timezones
 https://www.timezoneconverter.com/cgi-bin/zonehelp.tzc?cc=MX&ccdesc=Mexico
 https://www.timestamp-converter.com/
 https://dencode.com/en/date/iso8601
+https://heynode.com/tutorial/authenticate-users-node-expressjs-and-passportjs/
