@@ -6,10 +6,13 @@ var { GuestModel } = require('../model/guest');
 
 router.get('/', async function (req, res, next) {
 
+
+
   const data = await GuestModel.aggregate([
     {
       $group: {
         _id: '$response',
+        totalAmount: { $sum: "$confirmedAdultCount" },
         count: { $sum: 1 } // this means that the count will increment by 1
       }
     }
