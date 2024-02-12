@@ -32,7 +32,11 @@ html
             li.nav-item
               a.nav-link(href="/reportingGraphGuestCount" tabindex="3" aria-disabled="true") Total de Invitados
             li.nav-item
-              a.nav-link(href="/logout" tabindex="4" aria-disabled="true") Salir
+              a.nav-link(href="/logout" tabindex="4" aria-disabled="true") Salir 
+          form.form-inline.my-2.my-lg-0.text-uppercase
+            | #{user}
+            //- // TODO change image
+            img.ms-2.img-thumbnail.rounded-circle(style='width: 50px; height: 50px;', src='https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg')
               
 
     block content

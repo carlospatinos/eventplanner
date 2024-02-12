@@ -6,7 +6,8 @@ var { GuestModel } = require('../model/guest');
 
 router.get('/', async function (req, res, next) {
   var statuses = [STATUS.STATUS_ARRIVED, STATUS.STATUS_CONFIRMED, STATUS.STATUS_DECLINED];
-  res.render('reporting', { statuses });
+  var user = req.session.passport.user;
+  res.render('reporting', { statuses, user });
 });
 
 router.post('/', function (req, res, next) {
