@@ -10,11 +10,8 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const guest_mobile = req.body.guest_mobile;
-  const guest_mail = req.body.guest_mail;
+  const { guest_mobile, guest_mail, arrivedAdults, arrivedChildren } = req.body;
 
-  let arrivedAdults = req.body.arrivedAdults;
-  let arrivedChildren = req.body.arrivedChildren;
   let response = STATUS.STATUS_ARRIVED;
 
   const updates = { response: response, arrivedAdultCount: arrivedAdults, arrivedChildCount: arrivedChildren, responseDate: Date.now() };

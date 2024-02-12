@@ -17,10 +17,9 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const mailReq = req.body.mail;
-  const phone = req.body.phone
+  const { mail, phone } = req.body;
 
-  const query = { $or: [{ mail: mailReq }, { mobile: phone }] };
+  const query = { $or: [{ mail }, { mobile: phone }] };
 
   GuestModel.findOne(query).then((record) => {
     // console.log("Result :", record);

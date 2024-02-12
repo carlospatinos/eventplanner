@@ -6,7 +6,6 @@ var mainGuest = process.env.MAIN_GUEST;
 var celebration = process.env.CELEBRATION;
 var religiousPlace = process.env.RELIGIOUS_PLACE;
 var religiousAddress = process.env.RELIGIOUS_ADDRESS;
-// TODO check encoding as it is not rendered properly for the + 
 var religiousAddressMapsCode = process.env.RELIGIOUS_ADDRESS_MAPSCODE;
 var religiousUrl = process.env.RELIGIOUS_URL;
 var religiousDateTime = process.env.RELIGIOUS_DATE_TIME;
@@ -14,7 +13,6 @@ var religiousDateTimeObj = new Date(religiousDateTime);
 
 var partyPlace = process.env.PARTY_PLACE;
 var partyAddress = process.env.PARTY_ADDRESS;
-// TODO check encoding as it is not rendered properly for the + 
 var partyAddressMapsCode = process.env.PARTY_ADDRESS_MAPSCODE;
 var partyUrl = process.env.PARTY_URL;
 var partyDateTime = process.env.PARTY_DATE_TIME;
@@ -33,12 +31,11 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
-  const guest_mobile = req.body.guest_mobile;
-  const guest_mail = req.body.guest_mail;
-
-  const attendingSwitch = req.body.attendingSwitch;
-  let assistingAdults = req.body.assistingAdults;
-  let assistingChildren = req.body.assistingChildren;
+  let { guest_mobile, guest_mail, attendingSwitch, assistingAdults, assistingChildren } = req.body;
+  // const guest_mail = req.body.guest_mail;
+  // const attendingSwitch = req.body.attendingSwitch;
+  // let assistingAdults = req.body.assistingAdults;
+  // let assistingChildren = req.body.assistingChildren;
   let response = undefined;
 
   if (attendingSwitch == "1") {

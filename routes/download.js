@@ -18,22 +18,18 @@ const arrivingEndPoint = "/arrivedQR?userId="
 
 /* GET users listing. */
 router.post('/', async function (req, res, next) {
-  var guest_mail = req.body.guest_mail;
-  var guest_mobile = req.body.guest_mobile;
-  var guest_count = req.body.guest_count;
+  let { guest_mail, guest_mobile, guest_count, guest, downloadFormat } = req.body;
 
   var uniqueId = guest_mail;
   if (uniqueId == undefined) {
     uniqueId = guest_mobile;
   }
 
-
-  var ticketId = req.body.guest;
-  ticketId = ticketId.substr(ticketId.length - 17);
+  guest = guest.substr(guest.length - 17);
   var locationTable = "TBD" // TODO get table info from the database
-  var generatedTicket = await createTicket(locationTable, ticketId, uniqueId, guest_count, 'tickets/generated/' + uniqueId + '.png')
+  var generatedTicket = await createTicket(locationTable, guest, uniqueId, guest_count, 'tickets/generated/' + uniqueId + '.png')
 
-  switch (req.body.downloadFormat) {
+  switch (downloadFormat) {
     case "pdf":
       var pdfFile = imageToPdf(generatedTicket);
       // var fileContents = Buffer.from(pdfFile, "base64");
