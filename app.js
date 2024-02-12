@@ -39,6 +39,10 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
 }));
+app.use(function (req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
