@@ -6,7 +6,7 @@ const GuestChildrenSchema = new Schema({
     childrenAge: { type: Number, min: 0, max: 17 },
     mainGuest: {
         type: Schema.Types.ObjectId,
-        ref: 'guest',
+        ref: 'guestData',
     },
     responseDate: Date,
     updated: { type: Date, default: Date.now() },

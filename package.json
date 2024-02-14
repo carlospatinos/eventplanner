@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon --env-file .env ./bin/www"
+    "dev": "nodemon --env-file .env ./bin/www",
+    "importG": "node --env-file=.env ./scripts/importG.js",
+    "importU": "node --env-file=.env ./scripts/importU.js"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

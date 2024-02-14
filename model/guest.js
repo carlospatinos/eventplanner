@@ -6,7 +6,7 @@ const GuestSchema = new Schema({
     name: { type: String, required: true },
     lastname: { type: String, required: true },
     mail: { type: String, required: true },
-    mobile: { type: Number, required: true },
+    mobile: { type: Number, required: false },
     description: String,
     groupId: String,
     tableAllocated: String,
@@ -29,5 +29,5 @@ const GuestSchema = new Schema({
 });
 
 // Compile model from schema
-const GuestModel = mongoose.model("guest", GuestSchema);
+const GuestModel = mongoose.model('guestData', GuestSchema, 'guestData');
 module.exports = { GuestModel };

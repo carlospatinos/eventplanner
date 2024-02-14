@@ -11,7 +11,7 @@ const User = new Schema({
         default: ''
     },
     active: Boolean,
-    name: String,
+    realName: String,
     updated: { type: Date, default: Date.now() },
 });
 

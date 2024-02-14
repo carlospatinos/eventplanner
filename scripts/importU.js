@@ -1,4 +1,4 @@
-// node --env-file=.env scripts/dummy-users.js
+// node --env-file=.env scripts/importU.js
 const mongoose = require("mongoose");
 const { mongoServerUrl } = require('../util/config');
 
@@ -15,5 +15,5 @@ const mongoDbConnect = async () => {
 
 mongoDbConnect();
 
-UserModel.register({ username: 'carlospatinos@gmail.com', active: false, name: 'Carlos' }, 'mys3cret@');
-UserModel.register({ username: 'monikms@gmail.com', active: false, name: 'Monica' }, 'mys3cret2!');
+UserModel.register({ username: 'carlospatinos@gmail.com', active: false, realName: 'Carlos' }, 'mys3cret@');
+UserModel.register({ username: 'monikms@gmail.com', active: false, realName: 'Monica' }, 'mys3cret2!');
