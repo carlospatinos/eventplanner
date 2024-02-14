@@ -2,20 +2,9 @@ var express = require('express');
 var { STATUS, parseDate } = require('../lib/constants');
 var router = express.Router();
 
-var mainGuest = process.env.MAIN_GUEST;
-var celebration = process.env.CELEBRATION;
-var religiousPlace = process.env.RELIGIOUS_PLACE;
-var religiousAddress = process.env.RELIGIOUS_ADDRESS;
-var religiousAddressMapsCode = process.env.RELIGIOUS_ADDRESS_MAPSCODE;
-var religiousUrl = process.env.RELIGIOUS_URL;
-var religiousDateTime = process.env.RELIGIOUS_DATE_TIME;
-var religiousDateTimeObj = new Date(religiousDateTime);
+const { mainGuest, importantPeople, celebration, religiousPlace, religiousAddress, religiousAddressMapsCode, religiousUrl, religiousDateTime, partyPlace, partyAddress, partyAddressMapsCode, partyUrl, partyDateTime } = require('../util/config');
 
-var partyPlace = process.env.PARTY_PLACE;
-var partyAddress = process.env.PARTY_ADDRESS;
-var partyAddressMapsCode = process.env.PARTY_ADDRESS_MAPSCODE;
-var partyUrl = process.env.PARTY_URL;
-var partyDateTime = process.env.PARTY_DATE_TIME;
+var religiousDateTimeObj = new Date(religiousDateTime);
 var partyDateTimeObj = new Date(partyDateTime);
 
 var regilousDetails = { religiousPlace, religiousAddress, religiousAddressMapsCode, religiousUrl, religiousDateTimeObj }
@@ -32,10 +21,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
   let { guest_mobile, guest_mail, attendingSwitch, assistingAdults, assistingChildren } = req.body;
-  // const guest_mail = req.body.guest_mail;
-  // const attendingSwitch = req.body.attendingSwitch;
-  // let assistingAdults = req.body.assistingAdults;
-  // let assistingChildren = req.body.assistingChildren;
+
   let response = undefined;
 
   if (attendingSwitch == "1") {

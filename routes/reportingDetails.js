@@ -11,7 +11,7 @@ router.get('/', async function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
-  let query = req.body.query;
+  let { query } = req.body;
 
   GuestModel.find({ response: query }).then((records) => {
     if (records == null) {

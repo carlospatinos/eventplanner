@@ -4,7 +4,7 @@ var router = express.Router();
 var stream = require('stream');
 var Canvas = require('canvas');
 
-var template = process.env.TICKET_TEMPLATE;
+
 
 var sharp = require('sharp');
 var path = require('path');
@@ -13,7 +13,7 @@ var bwipjs = require('bwip-js');
 // var { fileURLToPath } = require('url');
 var TextToSVG = require('text-to-svg');
 
-const serviceURL = process.env.APP_ENDPOINT_QR_REDIRECT;
+const { ticketTemplate, appQrEndpoint } = require('../util/config');
 const arrivingEndPoint = "/arrivedQR?userId="
 
 /* GET users listing. */
@@ -127,8 +127,8 @@ async function createTicket(locationTable, ticketId, uniqueId, guestCount, outpu
     const locationImageBuffer = await generateSVG(locationTable, 45, 'black');
     const guestCountImageBuffer = await generateSVG(guestCount, 35, 'black');
     const rotatedTicketId = await sharp(ticketIdImageBuffer).rotate(270).toBuffer();
-    const qrcodeImageBuffer = await generateQRCode(serviceURL + arrivingEndPoint + uniqueId);
-    const ticketTemplatePath = path.join(__dirname, '../tickets/' + template)
+    const qrcodeImageBuffer = await generateQRCode(appQrEndpoint + arrivingEndPoint + uniqueId);
+    const ticketTemplatePath = path.join(__dirname, '../tickets/' + ticketTemplate)
 
     const ticket = sharp(ticketTemplatePath)
 

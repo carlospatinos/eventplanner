@@ -6,6 +6,10 @@ const Schema = mongoose.Schema;
 const User = new Schema({
     username: String,
     password: String,
+    icon: {
+        type: String,
+        default: ''
+    },
     updated: { type: Date, default: Date.now() },
 });
 
