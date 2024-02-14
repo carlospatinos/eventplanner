@@ -10,6 +10,8 @@ const User = new Schema({
         type: String,
         default: ''
     },
+    active: Boolean,
+    name: String,
     updated: { type: Date, default: Date.now() },
 });
 

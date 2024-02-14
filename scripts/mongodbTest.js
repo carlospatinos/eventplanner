@@ -1,7 +1,10 @@
 const express = require('express');
 const { MongoClient } = require("mongodb");
-const path = require('path'); 
-const app = express()
+const path = require('path');
+const app = express();
+
+const { mongoServerUrl } = require('../util/config');
+
 // var router = express.Router();
 var viewPath = __dirname + '/views/'; // this folder should contain your html files.
 app.use(express.static(path.join(__dirname, 'public')));
@@ -10,8 +13,7 @@ const port = 3000
 
 
 // Replace the uri string with your connection string.
-const uri = process.env.MONGOSERVER_URI;
-const client = new MongoClient(uri);
+const client = new MongoClient(mongoServerUrl);
 async function run() {
   try {
     const database = client.db('eventmanagement');
@@ -29,12 +31,12 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    
-    res.send('Hello World!');
-    // res.sendFile(viewPath + "index.html");
+
+  res.send('Hello World!');
+  // res.sendFile(viewPath + "index.html");
 })
 
 
 app.listen(port, () => {
-    console.log(`Event management app listening on port ${port}`)
+  console.log(`Event management app listening on port ${port}`)
 });
