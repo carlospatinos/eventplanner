@@ -23,8 +23,8 @@ var downloadRouter = require('./routes/download');
 var arrivedRouter = require('./routes/arrivedQR');
 var confirmedArrivalRouter = require('./routes/confirmedArrival');
 
-var loginRouter = require('./routes/login');
-var logoutRouter = require('./routes/logout');
+var accountLoginRouter = require('./routes/accountLogin');
+var accountLogoutRouter = require('./routes/accountLogout');
 
 var reportingRouter = require('./routes/reporting');
 var reportingDetailsRouter = require('./routes/reportingDetails');
@@ -85,13 +85,14 @@ app.use('/download', downloadRouter);
 app.use('/arrivedQR', arrivedRouter);
 app.use('/confirmedArrival', confirmedArrivalRouter);
 
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
+app.use('/accountLogin', accountLoginRouter);
+app.use('/accountLogout', accountLogoutRouter);
 
-app.use('/reporting', connectEnsureLogin.ensureLoggedIn(), reportingRouter);
-app.use('/reportingDetails', connectEnsureLogin.ensureLoggedIn(), reportingDetailsRouter);
-app.use('/reportingGraph', connectEnsureLogin.ensureLoggedIn(), reportingGraphRouter);
-app.use('/reportingGraphGuestCount', connectEnsureLogin.ensureLoggedIn(), reportingGraphGuestCountRouter);
+const loginPage = '/accountLogin';
+app.use('/reporting', connectEnsureLogin.ensureLoggedIn(loginPage), reportingRouter);
+app.use('/reportingDetails', connectEnsureLogin.ensureLoggedIn(loginPage), reportingDetailsRouter);
+app.use('/reportingGraph', connectEnsureLogin.ensureLoggedIn(loginPage), reportingGraphRouter);
+app.use('/reportingGraphGuestCount', connectEnsureLogin.ensureLoggedIn(loginPage), reportingGraphGuestCountRouter);
 
 app.use('/maps', mapsRouter);
 
