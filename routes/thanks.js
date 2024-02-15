@@ -1,5 +1,6 @@
 var express = require('express');
-var { STATUS, parseDate } = require('../lib/constants');
+var { STATUS } = require('../lib/constants');
+const logger = require('../util/logger');
 var router = express.Router();
 
 const { mainGuest, importantPeople, celebration, religiousPlace, religiousAddress, religiousAddressMapsCode, religiousUrl, religiousDateTime, partyPlace, partyAddress, partyAddressMapsCode, partyUrl, partyDateTime } = require('../util/config');
@@ -49,7 +50,7 @@ router.post('/', function (req, res, next) {
       }
     }
   }).catch((err) => {
-    console.log("error" + err);
+    logger.error("error: " + err);
     res.render('error', { error: 'Registro no encontrado' });
   });
 

@@ -1,4 +1,6 @@
 var express = require('express');
+const logger = require('../util/logger');
+
 var router = express.Router();
 
 var { GuestModel } = require('../model/guest');
@@ -15,7 +17,7 @@ router.get('/', async function (req, res, next) {
       res.render('arrivedQR', { guest: record });
     }
   }).catch((err) => {
-    console.log("error" + err);
+    logger.error('error: ' + err);
     res.render('error', { error: 'id no encontrado' });
   });
 });

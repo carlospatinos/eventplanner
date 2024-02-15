@@ -124,12 +124,13 @@ block content
               responseType: 'blob'
             },
             success: function(blob){
-              console.log(blob.size);
-                var link=document.createElement('a');
-                link.href=window.URL.createObjectURL(blob);
-                link.download="XV-Yare" + "20240810T1600" + ".pdf";
-                //- link.download="XV-" + mainGuest + "20240810T1600" + ".pdf";
-                link.click();
+              //- console.log(blob.size);
+              var link=document.createElement('a');
+              link.href=window.URL.createObjectURL(blob);
+              //- TODO change this for a generic
+              link.download="XV-Yare" + "20240810T1600" + ".pdf";
+              //- link.download="XV-" + mainGuest + "20240810T1600" + ".pdf";
+              link.click();
             }
             //- dataType: 'JSON'
           }).done(function(resp) {

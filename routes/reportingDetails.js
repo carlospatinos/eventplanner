@@ -1,4 +1,6 @@
 var express = require('express');
+const logger = require('../util/logger');
+
 var { STATUS } = require('../lib/constants');
 var router = express.Router();
 
@@ -21,7 +23,7 @@ router.post('/', function (req, res, next) {
       res.render('reportingDetails', { totalRecords: records, statuses });
     }
   }).catch((err) => {
-    console.log("error" + err);
+    logger.error("error: " + err);
     res.render('error', { error: 'Registro no encontrado' });
   });
 });

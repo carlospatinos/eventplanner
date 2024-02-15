@@ -1,5 +1,7 @@
 var express = require('express');
 var { STATUS } = require('../lib/constants');
+const logger = require('../util/logger');
+
 var router = express.Router();
 
 var { GuestModel } = require('../model/guest');
@@ -23,7 +25,8 @@ router.post('/', function (req, res, next) {
       res.render('confirmedArrival', { guest: record });
     }
   }).catch((err) => {
-    console.log("error" + err);
+    logger.error('error: ' + err);
+
     res.render('error', { error: 'Registro no encontrado' });
   });
 

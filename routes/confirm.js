@@ -1,4 +1,6 @@
 var express = require('express');
+const logger = require('../util/logger');
+
 var router = express.Router();
 
 var { GuestModel } = require('../model/guest');
@@ -24,7 +26,7 @@ router.post('/', function (req, res, next) {
       res.render('confirm', { eventDetails, guest: record });
     }
   }).catch((err) => {
-    console.log("error" + err);
+    logger.error('error: ' + err);
     res.render('error', { error: 'mail o telefono no encontrado' });
   });
 });

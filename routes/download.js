@@ -1,4 +1,6 @@
 var express = require('express');
+const logger = require('../util/logger');
+
 var router = express.Router();
 // const QRCode = require('qrcode');
 var stream = require('stream');
@@ -55,29 +57,6 @@ router.post('/', async function (req, res, next) {
   }
 });
 
-// router.post('/', function (req, res, next) {
-
-//   // res.set('Content-Type', 'application/vnd.apple.pkpass');
-//   // res.status(200).send(newPass);
-
-//   let data = {
-//     name: "Employee Name",
-//     age: 27,
-//     department: "Police",
-//     id: "aisuoiqu3234738jdhf100223"
-//   }
-
-//   let stringdata = JSON.stringify(data)
-
-//   QRCode.toDataURL(stringdata, function (err, qrEncodedCode) {
-//     if (err) return console.log("error occurred")
-//     // Printing the code
-//     console.log(qrEncodedCode)
-//     res.render('download', { qr: qrEncodedCode });
-//   })
-
-// });
-
 async function generateQRCode(text) {
   let qrcodeBuffer = await bwipjs.toBuffer({
     bcid: 'qrcode',
@@ -113,7 +92,7 @@ async function generateSVG(text, size, color) {
 
     return Buffer.from(svg)
   } catch (err) {
-    console.error('Error generating SVG:', err)
+    logger.error('Error generating SVG: ' + err);
     throw err
   }
 }
@@ -173,12 +152,12 @@ async function createTicket(locationTable, ticketId, uniqueId, guestCount, outpu
 
     // actualTicket.toFile(outputPath);
 
-    console.log('Ticket created!');
+    logger.info('Ticket created!');
 
     return actualTicket.toBuffer();
 
   } catch (err) {
-    console.error('Error creating ticket:', err)
+    logger.error('Error creating ticket: ', err)
     throw err
   }
 }
