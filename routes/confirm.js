@@ -18,7 +18,6 @@ router.post('/', function (req, res, next) {
   const query = { $or: [{ mail }, { mobile: phone }] };
 
   GuestModel.findOne(query).then((record) => {
-    console.log("Result :", record);
     if (record == null) {
       res.render('index', { eventDetails, error: 'Registro no encontrado' });
     } else {
