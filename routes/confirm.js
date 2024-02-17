@@ -9,8 +9,6 @@ var eventDetails = { mainGuest, importantPeople, celebration }
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  // const guest = new GuestModel({ name: "name", lastname: "lastname", mail:"mail", mobile:"mobile" });
-  // obj = await guest.save();
   res.render('index', { eventDetails, error: 'Registro no encontrado' });
 });
 

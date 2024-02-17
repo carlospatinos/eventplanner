@@ -6,7 +6,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  logger.debug('accountLogin');
+  logger.debug('accountLogin get');
   res.render('accountLogin', {});
 });
 

@@ -23,6 +23,8 @@ var downloadRouter = require('./routes/download');
 var arrivedRouter = require('./routes/arrivedQR');
 var confirmedArrivalRouter = require('./routes/confirmedArrival');
 
+
+var accountCreationRouter = require('./routes/accountCreation');
 var accountLoginRouter = require('./routes/accountLogin');
 var accountLogoutRouter = require('./routes/accountLogout');
 
@@ -85,10 +87,13 @@ app.use('/download', downloadRouter);
 app.use('/arrivedQR', arrivedRouter);
 app.use('/confirmedArrival', confirmedArrivalRouter);
 
-app.use('/accountLogin', accountLoginRouter);
-app.use('/accountLogout', accountLogoutRouter);
 
 const loginPage = '/accountLogin';
+app.use('/accountCreation', accountCreationRouter);
+app.use(loginPage, accountLoginRouter);
+app.use('/accountLogout', accountLogoutRouter);
+
+
 app.use('/reporting', connectEnsureLogin.ensureLoggedIn(loginPage), reportingRouter);
 app.use('/reportingDetails', connectEnsureLogin.ensureLoggedIn(loginPage), reportingDetailsRouter);
 app.use('/reportingGraph', connectEnsureLogin.ensureLoggedIn(loginPage), reportingGraphRouter);

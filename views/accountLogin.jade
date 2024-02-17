@@ -1,59 +1,39 @@
 extends layoutLogin
 
 block content
-  //- form.container.p-3.mb-2.bg-white.needs-validation(method="POST", action="/login" style="--bs-bg-opacity: .8;")
-  //-   .row.p-3.d-flex.justify-content-center.align-items-center
-  //-     .text-center
-  //-       input#username.form-control( type="text"  placeholder="Usurio" name="username" required)
-  //-   .row.p-3.d-flex.justify-content-center.align-items-center
-  //-     .text-center
-  //-       input#password.form-control( type="password"  placeholder="Password" name="password" required)
-    
-  //-   .row.p-3.d-flex.justify-content-center.align-items-center
-  //-     .text-center
-  //-       #has-warning
-  //-         spam.help-block.text-danger= error
-  //-   .row.p-3
-  //-     button.btn.btn-primary.text-uppercase(type="submit") Iniciar
-  //-   //-  style="border-radius: 0em;"
-  
-  .container.py-5.h-100
-    .row.d-flex.justify-content-center.align-items-center.h-100
-      .col-xl-10
-        .card.rounded-3.text-black
-          .row.g-0
-            .col-lg-6
-              .card-body.p-md-5.mx-md-4
-                .text-center
-                  //- // TODO change image
-                  img(src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp', style='width: 185px;', alt='logo')
-                  h4.mt-1.mb-5.pb-1 Administrador de Invitados
-                form.needs-validation(method="POST", action="/accountLogin" style="--bs-bg-opacity: .8;")
-                  p Por favor ingresa a tu cuenta
-                  .text-center
-                    #has-warning
-                      spam.help-block.text-danger= error
-                  .form-outline.mb-4
-                    //- TODO change text to email once account setup is in place
-                    input#username.form-control(type='text', name="username" placeholder='Direccion de correo electronico' required)
-                    label.form-label(for='username') Usuario
-                  .form-outline.mb-4
-                    input#password.form-control(type='password' name="password" required)
-                    label.form-label(for='password') Password
-                  .text-center
-                    button.btn.btn-primary.btn-block.fa-lg.mb-3(type='submit')
-                      | Iniciar
-                      | Session
-                  .text-center
-                    a.text-muted(href='#!') Olvidaste tu password?
-                  .d-flex.align-items-center.justify-content-center.p-4
-                    p.mb-0.me-2 Aun no tienes tu cuenta? 
-                    button.btn.btn-outline-danger(type="button") Creala ahora
-            .col-lg-6.d-flex.align-items-center.gradient-custom-2
-              .text-white.px-3.py-4.p-md-5.mx-md-4
-                h4.mb-4 Somos mas que una compañia
-                p.small.mb-0
-                  | Somos un grupo de profesionals Mexicanos que comenzamos con la idea de solucionar
-                  | el manejo y administracion de invitados para un evento importante de uno de nosotros
-                  | y esa idea fue evolucionando hasta poder compartir este sueño con ustedes. 
 
+  section.vh-100
+    .container.py-5.h-100
+      .row.d-flex.justify-content-center.align-items-center.h-100
+        .col-12.col-md-8.col-lg-6.col-xl-5
+          .card.shadow-2-strong(style='border-radius: 1rem;')
+            .card-body.p-5.text-center
+              form.needs-validation(method="POST", action="/accountLogin" style="--bs-bg-opacity: .8;")
+                h3.mb-5 Por favor ingresa a tu cuenta
+                .form-outline.mb-4
+                  input#username.form-control.form-control-lg(type='email' name="username" placeholder='Direccion de correo electronico' required)
+                  label.form-label(for='username') Email
+                .form-outline.mb-4
+                  input#password.form-control.form-control-lg(type='password' name="password" required)
+                  label.form-label(for='password') Password
+                .text-center
+                  #has-warning
+                    spam.help-block.text-danger= error
+                // Checkbox
+                .form-check.d-flex.justify-content-start.mb-4
+                  input#rememberPassword.form-check-input(type='checkbox', value='')
+                  label.me-3.form-check-label(for='rememberPassword') Remember password 
+                .text-center
+                  //- button.btn.btn-primary.btn-lg.btn-block(type='submit') 
+                  button.btn.btn-primary.btn-block.fa-lg.mb-3(type='submit')
+                    | Iniciar
+                    | Session
+                .text-center
+                  a.text-muted(href='#!') Olvidaste tu password?
+                //- .d-flex.align-items-center.justify-content-center.p-4
+                //-   p.mb-0.me-2 Aun no tienes tu cuenta? 
+                //-   button.btn.btn-outline-danger(type="button") Creala ahora
+                .text-center.text-muted.mt-3.mb-0
+                    | Aun no tienes una cuenta? 
+                    a.fw-bold.text-body(href='/accountCreation')
+                      u Creala ahora
