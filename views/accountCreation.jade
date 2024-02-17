@@ -1,7 +1,27 @@
 extends layoutLogin
 
 block content
- 
+  script. 
+    $(document).ready(function() {
+      $("#validate").validate({
+        rules: {
+            password: 'required',
+            password2: 'required',
+            confirm: {
+               required: true,
+               equalTo : "#password2",
+            },
+        },
+        messages: {
+         password: 'Current Password is required',
+         password2: 'New Password is required',
+         confirm: {
+           required : 'Confirm Password is required',
+           equalTo : 'Password not matching',
+         }
+        },
+      });
+    });
   .container.py-4
       .mask.d-flex.align-items-center.h-100.gradient-custom-3
         .container.h-100
@@ -10,7 +30,7 @@ block content
               .card(style='border-radius: 15px;')
                 .card-body.p-5
                   h3.text-center.mb-2 Crea tu cuenta                    
-                  form.needs-validation(method="POST", action="/accountCreation" style="--bs-bg-opacity: .8;")
+                  form.needs-validation(method="POST", action="/accountCreation" id="validate" style="--bs-bg-opacity: .8;")
                     .justify-content-center.text-center.mb-2
                       #has-warning
                         spam.help-block.text-danger= error
@@ -25,7 +45,7 @@ block content
                       label.form-label(for='password') Password
                     .form-outline.mb-4
                       input#password2.form-control.form-control-lg(type='password' name='password2' required)
-                      label.form-label(for='password2') Repite tu password
+                      label.form-label(for='password2') Confirma tu password
                     .form-check.d-flex.justify-content-center.mb-5
                       input#acceptTermsAndConds.form-check-input.me-2(type='checkbox', value='' name='acceptTermsAndConds')
                       label.form-check-label(for='acceptTermsAndConds')
