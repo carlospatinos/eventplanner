@@ -61,7 +61,7 @@ block content
         },
         messages: {
           realName: 'Campo requerido. ',
-          email: 'Formato de correo electronico invalido. ',
+          email: 'Correo electronico invalido. ',
           password: 'Campo requerido. ',
           confirmPassword: {
             required : 'Campo requerido. ',
@@ -90,17 +90,17 @@ block content
                     #has-warning
                       spam.help-block.text-danger= error
                   .form-outline.mb-4
-                    input#realName.form-control.form-control-lg(type='text' name="realName" required data-error="#realName-error")
+                    input#realName.form-control.form-control-lg(type='text' name="realName" data-error="#realName-error")
                     label.form-label(for='realName') Nombre 
                     span#realName-error.help-block.text-danger.ms-2
                   .form-outline.mb-4
-                    input#email.form-control.form-control-lg(type='email' name="email" required data-error="#email-error")
+                    input#email.form-control.form-control-lg(type='email' name="email" data-error="#email-error")
                     label.form-label(for='email') Correo electronico
                     span#email-error.help-block.text-danger.ms-2
                   .form-outline.mb-4
-                    input#password.form-control.form-control-lg(type='password' name='password' required data-error="#password-error"  onkeyup="checkPasswordStrength();")
-                    .input-icon-right.peek-password-button(data-peek-password='password')
-                      span.peek-password-icon.icon-visibility
+                    input#password.form-control.form-control-lg(type='password' name='password' data-error="#password-error"  onkeyup="checkPasswordStrength();")
+                    //- .input-icon-right.peek-password-button(data-peek-password='password')
+                    //-   span.peek-password-icon.icon-visibility
                     label.form-label(for='password') Password
                     span#password-error.help-block.text-danger.ms-2
                     #password-strength-status
