@@ -7,13 +7,13 @@ block content
       .row.d-flex.justify-content-center.align-items-center.h-100
         .col-12.col-md-8.col-lg-6.col-xl-5
           .card.shadow-2-strong(style='border-radius: 1rem;')
-            .card-body.p-5.text-center
+            .card-body.p-5
               form.needs-validation(method="POST", action="/accountLogin" style="--bs-bg-opacity: .8;")
                 h3.mb-5 Por favor ingresa a tu cuenta
                 .form-outline.mb-4
-                  input#username.form-control.form-control-lg(type='email' name="username" placeholder='Direccion de correo electronico' required)
+                  input#username.form-control.form-control-lg(type='email' name="username" placeholder='' required)
                   label.form-label(for='username') Email
-                .form-outline.mb-4
+                .form-outline.mb-2
                   input#password.form-control.form-control-lg(type='password' name="password" required)
                   label.form-label(for='password') Password
                 .text-center
@@ -21,7 +21,7 @@ block content
                     spam.help-block.text-danger= error
                 // Checkbox
                 .form-check.d-flex.justify-content-start.mb-4
-                  input#rememberPassword.form-check-input(type='checkbox', value='')
+                  input#rememberPassword.form-check-input.me-2(type='checkbox', value='')
                   label.me-3.form-check-label(for='rememberPassword') Remember password 
                 .text-center
                   //- button.btn.btn-primary.btn-lg.btn-block(type='submit') 

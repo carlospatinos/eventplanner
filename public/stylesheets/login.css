@@ -1,4 +1,3 @@
-@import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100'
 
 .container {
   height 100%;
@@ -7,14 +6,10 @@
   align-items center;
   display flex;
 }
-.text {
-  font-weight 100;
-  font-size 28px;
-  color #FAFAFA;
-}
 .dud {
   color #757575;
 }
+
 
 body {
   background: url("/images/bg.jpeg") no-repeat center center fixed;
@@ -24,31 +19,66 @@ body {
   background-size: cover;
 }
 
-.gradient-custom-2 {
-  /* fallback for old browsers */
-  background: #fccb90;
+.password-strength-group {
+  .password-strength-meter {
+    width: 100%;
+    transition: height 0.3s;
 
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(
-    to right,
-    #ee7724,
-    #d8363a,
-    #dd3675,
-    #b44593
-  );
+    display: flex;
+    justify-content: stretch;
 
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-}
+    //offseting meter-block gaps
+    .meter-block {
+      height: 10px;
+      background: #000;
 
-@media (min-width: 768px) {
-  .gradient-form {
-    height: 100vh !important;
+      margin-right: 6px;
+      flex-grow: 1;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
   }
-}
-@media (min-width: 769px) {
-  .gradient-custom-2 {
-    border-top-right-radius: 0.3rem;
-    border-bottom-right-radius: 0.3rem;
+
+  .password-strength-message {
+    font-weight: 20px;
+    height: 1em;
+    text-align: right;
+    transition: all 0.5s;
+    margin-top: 3px;
+
+    position: relative;
+    .message-item {
+      font-size: 12px;
+      position: absolute;
+      right: 0;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+  }
+
+  //define activated state:
+
+  @for $i from 1 through 4 {
+    &[data-strength="#{$i}"] {
+
+      .meter-block:nth-child(-n + #{$i}) {
+        //Switch cases color
+        @if ($i == 1) {
+          background: #cc3d04; //red
+        } @else if($i == 2) {
+          background: #ffc43b; //yellow
+        } @else if($i == 3) {
+          background: #9ea60a; //Yellow-green
+        } @else if($i == 4) {
+          background: #289116; //yellow
+        }
+      }
+
+      .message-item:nth-child(#{$i}) {
+        opacity: 1;
+      }
+    }
   }
 }

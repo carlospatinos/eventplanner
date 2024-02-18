@@ -1,61 +1,142 @@
 extends layoutLogin
 
 block content
-  script. 
+  script.
+    function checkPasswordStrength() {
+      var number = /([0-9])/;
+      var alphabets = /([a-zA-Z])/;
+      var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+      var password = $('#password').val().trim();
+      if (password.length < 6) {
+        $('#password-strength-status').removeClass();
+        $('#password-strength-status').addClass('text-danger');
+        $('#password-strength-status').html("Password debil (usa por lo menos 6 caracteres.)");
+      } else {
+        if (password.match(number) && password.match(alphabets) && password.match(special_characters)) {
+          $('#password-strength-status').removeClass();
+          $('#password-strength-status').addClass('text-success');
+          $('#password-strength-status').html("Password fuerte");
+        }
+        else {
+          $('#password-strength-status').removeClass();
+          $('#password-strength-status').addClass('text-warning');
+          $('#password-strength-status').html("Password medio (debes usar letras, numeros y caracteres especiales.)");
+        }
+      }
+    }
+    function passwordCheck(password) {
+      if (password.length >= 8)
+        strength += 1;
+      if (password.match(/(?=.*[0-9])/))
+        strength += 1;
+      if (password.match(/(?=.*[!,%,&,@,#,$,^,*,?,_,~,<,>,])/))
+        strength += 1;
+      if (password.match(/(?=.*[a-z])/))
+        strength += 1;
+      displayBar(strength);
+    }
+    function displayBar(strength) {
+      $(".password-strength-group").attr('data-strength', strength);
+    }
+    $("#signupInputPassword").keyup(function () {
+      strength = 0;
+      var password = $(this).val();
+      passwordCheck(password);
+    });
+
     $(document).ready(function() {
       $("#validate").validate({
         rules: {
-            password: 'required',
-            password2: 'required',
-            confirm: {
-               required: true,
-               equalTo : "#password2",
-            },
+          realName: 'required',
+          email: {
+            required: true,
+            email: true
+          },
+          password: 'required',
+          confirmPassword: {
+             required: true,
+             equalTo : "#password",
+          },
+          acceptTermsAndConds: 'required'
         },
         messages: {
-         password: 'Current Password is required',
-         password2: 'New Password is required',
-         confirm: {
-           required : 'Confirm Password is required',
-           equalTo : 'Password not matching',
-         }
+          realName: 'Campo requerido. ',
+          email: 'Formato de correo electronico invalido. ',
+          password: 'Campo requerido. ',
+          confirmPassword: {
+            required : 'Campo requerido. ',
+            equalTo : 'Los passwords deben coincidir. ',
+          },
+          acceptTermsAndConds: 'Campo requerido. '
         },
+        errorPlacement: function(error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        }
       });
     });
-  .container.py-4
-      .mask.d-flex.align-items-center.h-100.gradient-custom-3
-        .container.h-100
-          .row.d-flex.justify-content-center.align-items-center.h-100
-            .col-12.col-md-9.col-lg-7.col-xl-6
-              .card(style='border-radius: 15px;')
-                .card-body.p-5
-                  h3.text-center.mb-2 Crea tu cuenta                    
-                  form.needs-validation(method="POST", action="/accountCreation" id="validate" style="--bs-bg-opacity: .8;")
-                    .justify-content-center.text-center.mb-2
-                      #has-warning
-                        spam.help-block.text-danger= error
-                    .form-outline.mb-4
-                      input#realName.form-control.form-control-lg(type='text' name="realName" required)
-                      label.form-label(for='realName') Nombre
-                    .form-outline.mb-4
-                      input#email.form-control.form-control-lg(type='email' name="email" required)
-                      label.form-label(for='email') Correo electronico
-                    .form-outline.mb-4
-                      input#password.form-control.form-control-lg(type='password' name='password' required)
-                      label.form-label(for='password') Password
-                    .form-outline.mb-4
-                      input#password2.form-control.form-control-lg(type='password' name='password2' required)
-                      label.form-label(for='password2') Confirma tu password
-                    .form-check.d-flex.justify-content-center.mb-5
-                      input#acceptTermsAndConds.form-check-input.me-2(type='checkbox', value='' name='acceptTermsAndConds')
-                      label.form-check-label(for='acceptTermsAndConds')
-                        | Estoy de cuerdo con los 
-                        a.text-body(href='#!')
-                          u Terminos y servicios
-                    .d-flex.justify-content-center
-                      button.btn.btn-primary.btn-block.btn-lg.text-body(type='submit') Registrar
-                    p.text-center.text-muted.mt-5.mb-0
-                      | Ya tienes una cuenta? 
-                      a.fw-bold.text-body(href='/accountLogin')
-                        u Inicia aqui
+  .container.py-4.align-items-center.container.h-100
+        .row.d-flex.justify-content-center.align-items-center
+          .col-12.col-md-9.col-lg-7.col-xl-6
+            .card(style='border-radius: 15px;')
+              .card-body.p-5
+                h3.text-center.mb-2 Crea tu cuenta                    
+                form.needs-validation(method="POST", action="/accountCreation" id="validate" style="--bs-bg-opacity: .8;")
+                  .justify-content-center.text-center.mb-2
+                    #has-warning
+                      spam.help-block.text-danger= error
+                  .form-outline.mb-4
+                    input#realName.form-control.form-control-lg(type='text' name="realName" required data-error="#realName-error")
+                    label.form-label(for='realName') Nombre 
+                    span#realName-error.help-block.text-danger.ms-2
+                  .form-outline.mb-4
+                    input#email.form-control.form-control-lg(type='email' name="email" required data-error="#email-error")
+                    label.form-label(for='email') Correo electronico
+                    span#email-error.help-block.text-danger.ms-2
+                  .form-outline.mb-4
+                    input#password.form-control.form-control-lg(type='password' name='password' required data-error="#password-error"  onkeyup="checkPasswordStrength();")
+                    .input-icon-right.peek-password-button(data-peek-password='password')
+                      span.peek-password-icon.icon-visibility
+                    label.form-label(for='password') Password
+                    span#password-error.help-block.text-danger.ms-2
+                    #password-strength-status
+                    //- TODO why this did not work
+                    //- https://codepen.io/rickvian/pen/oNzBgPB?editors=1000
+                    //- .password-strength-group(data-strength='')
+                    //-   #password-strength-meter.password-strength-meter
+                    //-     .meter-block
+                    //-     .meter-block
+                    //-     .meter-block
+                    //-     .meter-block
+                    //-   .password-strength-message
+                    //-     .message-item
+                    //-       | Weak Password
+                    //-     .message-item
+                    //-       | Okay
+                    //-     .message-item
+                    //-       | Strong
+                    //-     .message-item
+                    //-       | Very Strong!
+                    
+                  .form-outline.mb-4
+                    input#confirmPassword.form-control.form-control-lg(type='password' name='confirmPassword' required data-error="#confirmPassword-error")
+                    label.form-label(for='confirmPassword') Confirma tu password
+                    span#confirmPassword-error.help-block.text-danger.ms-2
+                  .form-check.d-flex.justify-content-center.mb-5
+                    input#acceptTermsAndConds.form-check-input.me-2(type='checkbox', value='' name='acceptTermsAndConds' data-error="#acceptTermsAndConds-error")
+                    label.form-check-label(for='acceptTermsAndConds')
+                      | Estoy de cuerdo con los 
+                      a.text-body(href='#!')
+                        u Terminos y servicios
+                      span#acceptTermsAndConds-error.help-block.text-danger.ms-2
+                  .d-flex.justify-content-center
+                    button.btn.btn-primary.btn-block.btn-lg.text-body(type='submit') Registrar
+                  p.text-center.text-muted.mt-5.mb-0
+                    | Ya tienes una cuenta? 
+                    a.fw-bold.text-body(href='/accountLogin')
+                      u Inicia aqui
 
