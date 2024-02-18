@@ -1,0 +1,34 @@
+extends layoutLogin
+
+block content
+  script.
+    $(document).ready(function() {
+      $("#validate").validate({
+        rules: {
+          username: {
+            required: true,
+            email: true
+          },
+          password: 'required',
+        },
+        messages: {
+          username: 'Correo electronico invalido. ',
+          password: 'Campo requerido. ',
+        },
+        errorPlacement: function(error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        }
+      });
+    });
+  section.vh-100
+    .container.py-5.h-100
+      .row.d-flex.justify-content-center.align-items-center.h-100
+        .col-12.col-md-8.col-lg-6.col-xl-5
+          .card.shadow-2-strong(style='border-radius: 1rem;')
+            .card-body.p-5
+                h3.mb-5 Terms and Conditions

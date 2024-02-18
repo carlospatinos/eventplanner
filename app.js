@@ -16,6 +16,9 @@ const { mongoServerUrl, sessionSecret } = require('./util/config');
 
 
 
+
+var termsAndConditionsRouter = require('./routes/termsAndConditions');
+
 var indexRouter = require('./routes/index');
 var confirmRouter = require('./routes/confirm');
 var thanksRouter = require('./routes/thanks');
@@ -87,6 +90,8 @@ app.use('/download', downloadRouter);
 app.use('/arrivedQR', arrivedRouter);
 app.use('/confirmedArrival', confirmedArrivalRouter);
 
+
+app.use('/termsAndConditions', termsAndConditionsRouter);
 
 const loginPage = '/accountLogin';
 app.use('/accountCreation', accountCreationRouter);
