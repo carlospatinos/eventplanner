@@ -63,7 +63,7 @@ const mongoDbConnect = async () => {
   try {
     await mongoose.connect(mongoServerUrl);
   } catch (error) {
-    console.error(error);
+    console.error("MongoDB connection error: " + error);
     process.exit(1);
   }
 };

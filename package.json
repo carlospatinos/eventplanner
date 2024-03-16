@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "test": "jest",
+    "testSerial": "jest --runInBand --detectOpenHandles",
+    "testCov": "jest --coverage",
+    "testInt": "jest --watchAll",
     "start": "node ./bin/www",
     "dev": "nodemon --env-file .env ./bin/www",
     "importG": "node --env-file=.env ./scripts/importG.js",
@@ -33,6 +37,10 @@
     "text-to-svg": "^3.1.5"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^9.1.6",
+    "nodemon": "^3.0.3",
+    "supertest": "^6.3.4"
   }
 }
