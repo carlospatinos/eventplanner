@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var favicon = require('serve-favicon');
+const cors = require('cors');
 
 const passport = require('passport');
 const session = require('express-session');
@@ -53,6 +54,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors())
 
 passport.use(UserModel.createStrategy());
 

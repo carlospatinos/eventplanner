@@ -8,4 +8,10 @@ router.get('/', async function (req, res, next) {
   res.render('index', { eventDetails: { mainGuest, importantPeople, celebration } });
 });
 
+
+router.get('/api', async function (req, res, next) {
+  console.log("API call")
+  res.send('Hello from our server!')
+});
+
 module.exports = router;
